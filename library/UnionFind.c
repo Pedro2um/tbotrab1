@@ -28,8 +28,10 @@ UF* initUnionFind(int n){
 }
 
 void Union(UF* uf,  int a,int b){
-    int ar = Find(uf, a - 1);
-    int br = Find(uf, b - 1);
+    int ar = Find(uf, a) - 1;
+    int br = Find(uf, b) - 1;
+
+    printf(" %d %d\n", ar, br);
 
     int * w = uf->weights;
     int * v = uf->vec;
@@ -52,11 +54,12 @@ int Conected(UF* uf, int a, int b){
 
 int Find(UF* uf, int a){
     int * vec = uf->vec;
-    int i = a;
+    int i = a - 1;
     while (i != vec[i]){
         vec[i] = vec[vec[i]];
+        i = vec[i];
     }
-    return i;
+    return i + 1;
 }
 
 
