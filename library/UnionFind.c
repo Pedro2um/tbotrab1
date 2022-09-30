@@ -31,8 +31,6 @@ void Union(UF* uf,  int a,int b){
     int ar = Find(uf, a) - 1;
     int br = Find(uf, b) - 1;
 
-    printf(" %d %d\n", ar, br);
-
     int * w = uf->weights;
     int * v = uf->vec;
 
