@@ -38,7 +38,7 @@ void insert_list_gen(ListGen* l, void * info){
         l->end = n;
     }
 
-    l->size --;
+    l->size ++;
 
     return;
 

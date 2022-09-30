@@ -27,7 +27,10 @@ UF* initUnionFind(int n){
 
 }
 
+//o elemento passado é a posicao do vetor, mas o elemento 1 está na posicao 0, portanto, toda funcao que retorna um inteiro para o usuario, na verdade, esse 
+//inteiro menos 1 é a posicao real no vetor
 void Union(UF* uf,  int a,int b){
+    // por isso subtraimos 1 aqui 
     int ar = Find(uf, a) - 1;
     int br = Find(uf, b) - 1;
 
@@ -57,6 +60,7 @@ int Find(UF* uf, int a){
         vec[i] = vec[vec[i]];
         i = vec[i];
     }
+    //retornamos o index mais 1, porque o usuario pensa que o vetor comeca com o elemento igual a 1
     return i + 1;
 }
 
@@ -73,6 +77,7 @@ void printUnionFind(UF* uf){
 
     printf("[ ");
     for(int i =0; i < uf->size; i ++){
+        // pritna i + 1 porque o usuario pensa que o vetor comeca com o elemento igual a 1
         printf("%d ", vec[i] + 1);
     }
     printf("]\n");
