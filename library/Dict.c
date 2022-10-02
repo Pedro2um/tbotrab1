@@ -1,21 +1,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "dict.h"
+#include "Dict.h"
 
 static int _hash_code(char *key);
 
-struct key_val{
+struct keyVal{
     char *key;
     void *value;
 };
 
-void dict_init(dict d){
-    memset(d, 0, sizeof(dict));
+void dict_init(Dict d){
+    memset(d, 0, sizeof(Dict));
 }
 
-void dict_insert(dict d, char *key, void *value){
-    key_val *kv = (key_val *) malloc(sizeof(key_val));
+void dict_insert(Dict d, char *key, void *value){
+    KeyVal *kv = (KeyVal *) malloc(sizeof(KeyVal));
     kv->key = strdup(key);
     kv->value = value;
 
@@ -34,7 +34,7 @@ void dict_insert(dict d, char *key, void *value){
     d[hash_code + i] = kv;
 }
 
-void *dict_get(dict d, char *key){
+void *dict_get(Dict d, char *key){
     int hash_code = _hash_code(key);
     int i = 0;
 
@@ -46,7 +46,7 @@ void *dict_get(dict d, char *key){
     return d[hash_code + i]->value;
 }
 
-void dict_delete(dict d){
+void dict_delete(Dict d){
     for(int i = 0; i < DICT_SIZE; i++){
         if(d[i] != NULL){
             free(d[i]->key);

@@ -3,7 +3,7 @@
 
 typedef struct node node;
 
-#include "listaGen.h"
+#include "ListaGen.h"
 
 struct listGen{
     node * begin;

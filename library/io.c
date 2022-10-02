@@ -3,6 +3,7 @@
 #include <string.h>
 #include <assert.h>
 #include "io.h"
+#include "PlanesPointList.h"
 
 #define NAME_KEY "NAME"
 #define COM_KEY "COMMENT"
@@ -11,10 +12,16 @@
 #define EDGE_KEY "EDGE_WEIGHT_TYPE"
 #define COORD_KEY "NODE_COORD_SECTION"
 
-static char *_read_value(dict d, FILE *f, char *key, int add_to_data);
+static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
-void read_tsp_data(dict d, char *tsp_file){
+static int _read_coord(PlanesPointList *coords, FILE *f, int max_coord, int cc);
+
+void read_tsp_data(Dict d, char *tsp_file){
     FILE *f = fopen(tsp_file, "r");
+    if(f == NULL){
+        printf("ERROR: No such file or directory: '%s'", tsp_file);
+        exit(EXIT_FAILURE);
+    }
 
     // Read the name    
     _read_value(d, f, NAME_KEY, 1);
@@ -43,10 +50,23 @@ void read_tsp_data(dict d, char *tsp_file){
         exit(EXIT_FAILURE);
     }
 
+    // Read the coordinates
+    char *coord_key = NULL;
+    fscanf(f, " %m[^\n]\n", &coord_key);
+    assert(strcmp(COORD_KEY , coord_key) == 0);
+    free(coord_key);
+
+    int max_coord = *( (int *) dict_get(d, DIM_KEY) );
+    PlanesPointList *coords = pp_list_init();
+    int cc = 1;
+
+    while(_read_coord(coords, f, max_coord, cc)) cc++;
+    dict_insert(d, COORD_KEY, coords);
+
     fclose(f);
 }
 
-static char *_read_value(dict d, FILE *f, char *key, int add_to_data){
+static char *_read_value(Dict d, FILE *f, char *key, int add_to_data){
     char *key_str = NULL, *value = NULL;
     fscanf(f, " %m[^:]: %m[^\n]\n", &key_str, &value);
     assert(strcmp(key, key_str) == 0);
@@ -55,4 +75,18 @@ static char *_read_value(dict d, FILE *f, char *key, int add_to_data){
 
     free(key_str);
     return value;
+}
+
+static int _read_coord(PlanesPointList *coords, FILE *f, int max_coord, int cc){
+    int i = 0;
+    double x = 0.0, y = 0.0;
+
+    int id = fscanf(f, "%d%lf%lf", &i, &x, &y);
+    if(id != 3){
+        return 0;
+    }
+
+    assert(i == cc && i <= max_coord);
+    pp_list_insert(coords, init_planes_point(i, x, y));
+    return 1;
 }
