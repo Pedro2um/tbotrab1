@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "UnionFind.h"
-
+#define     in_range(x, N)          (x >= 0 && x < N)
 
 struct uf{
     int * vec;
