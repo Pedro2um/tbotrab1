@@ -14,6 +14,8 @@ int get_id_a_edge(Edge* e);
 
 int get_ide_b_edge(Edge * e);
 
+int cmp_edge(const void *a, const void *b);
+
 void free_edge(Edge * e);
 
 
