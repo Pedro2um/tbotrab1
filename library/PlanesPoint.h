@@ -24,6 +24,8 @@ double distance_between_planes_point(PlanesPoint* p1, PlanesPoint* p2);
 //copia os dados do plano 1 e passa dos dados para o plano 2, (inclusive o id);
 void copy_to_planes_point(PlanesPoint * p1, PlanesPoint* p2);
 
+int get_id_planes_point(PlanesPoint* p);
+
 
 
 #endif 

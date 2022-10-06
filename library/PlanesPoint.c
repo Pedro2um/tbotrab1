@@ -51,3 +51,7 @@ void copy_to_planes_point(PlanesPoint * p1, PlanesPoint* p2){
     p2->id = p1->id;
     return;
 }
+
+int get_id_planes_point(PlanesPoint* p){
+    return p->id;
+}

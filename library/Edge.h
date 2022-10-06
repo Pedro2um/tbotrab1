@@ -2,6 +2,7 @@
 #define EDGE_H
 
 typedef struct edge Edge;
+typedef Edge** EdgesArray;
 
 Edge* init_edge(int id_a, int id_b, double weight);
 
