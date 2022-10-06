@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -85,6 +86,7 @@ int main(int argc, char* argv[]){
 
    free_info_plus_list_gen(l, libera_inteiro);*/
     //puts("AQUI");
+    /*
     const int N = 5;
     const int SIZE = 10;
     printf("%d\n", SIZE);
@@ -138,3 +140,4 @@ int main(int argc, char* argv[]){
     return 0;
 
 }
+*/
