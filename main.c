@@ -52,12 +52,20 @@ int main(void){
     puts("");
 
     ListGen* l = init_list_gen();
+    
     insere_inteiro(l, 1);
     insere_inteiro(l, 2);
     insere_inteiro(l, 3);
     insere_inteiro(l, 4);
     insere_inteiro(l, 5);
 
+    Iterator* t = get_iterator_list_gen(l);
+    for(; its_end_iterator(t)!= 1; advance_iterator(t)){
+        int * i = get_current_by_iterator(t);
+        printf("%d\n", *i);
+    }
+
+    free_iterator(t);
    
     remove_inteiro(l ,1);
     remove_inteiro(l ,5);
@@ -67,15 +75,7 @@ int main(void){
 
     free_info_plus_list_gen(l, libera_inteiro);
 
-    PlanesPoint * p = init_planes_point(1, 3, 0);
-    PlanesPoint * p2 = init_planes_point(2, 0, 4 );
-    Edge* e = init_edge(get_id_planes_point(p), get_id_planes_point(p2), distance_between_planes_point(p ,p2));
-
-    print_edge(e);
-
-    free_edge(e);
-    free_planes_point(p);
-    free_planes_point(p2);
+   
 
     return 0;
 }

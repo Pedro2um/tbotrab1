@@ -5,6 +5,11 @@ typedef struct node node;
 
 #include "ListaGen.h"
 
+struct iterator{
+    ListGen *l ;
+    node * current;
+};
+
 struct listGen{
     node * begin;
     node * end;
@@ -19,6 +24,7 @@ struct node {
 
 ListGen* init_list_gen(void){
     ListGen* l = (ListGen*)malloc(sizeof(ListGen));
+
     l->begin = NULL;
     l->end = NULL;
 
@@ -32,6 +38,7 @@ void insert_list_gen(ListGen* l, void * info){
 
     n->info = info;
     n->next = l->begin;
+
     l->begin = n;
 
     if(l->end == NULL){
@@ -140,4 +147,32 @@ void free_info_plus_list_gen(ListGen * l, void (*free_info)(void * info)){
     free(l);
 
     return ;
+}
+
+Iterator* get_iterator_list_gen(ListGen* l ){
+    Iterator * t  = (Iterator*)malloc(sizeof(Iterator));
+    t->current = l->begin;
+    t->l = l;
+    return t;
+}
+
+
+void advance_iterator(Iterator* t){
+    if(its_end_iterator(t)) return ;
+    t->current = t->current->next;
+}
+
+void free_iterator(Iterator* t){
+    free(t);
+    return ;
+}
+
+void* get_current_by_iterator(Iterator* t){
+    return t->current->info;
+}
+
+int its_end_iterator(Iterator* t){
+    if (t->current == NULL){
+        return 1;
+    }else return 0;
 }

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+typedef struct iterator Iterator;
 typedef struct listGen ListGen;
 
 // inicia uma lista generica sem nenhum elemento 
@@ -27,6 +27,16 @@ void free_info_plus_list_gen(ListGen * l, void (*free_info)(void * info));
 
 //libera somente a lista, e nao os elementos armazenados
 void free_list_gen(ListGen * l);
+
+Iterator* get_iterator_list_gen(ListGen* l );
+
+void advance_iterator(Iterator* t);
+
+void free_iterator(Iterator* t);
+
+void* get_current_by_iterator(Iterator* t);
+
+int its_end_iterator(Iterator* t);
 
 
 #endif 
