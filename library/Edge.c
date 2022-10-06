@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 #include "Edge.h"
+#include "float.h"
 
 struct edge{
     int id_a;
@@ -24,8 +25,6 @@ double get_weight_edge(Edge* e){
     }
     return e->weight;
 }
-
-
 
 void print_edge(Edge* e){
     if(e == NULL){
@@ -52,6 +51,12 @@ int get_ide_b_edge(Edge * e){
     return e->id_b;
 }
 
+int cmp_edge(const void *a, const void *b){
+    Edge **ea = (Edge **) a, **eb = (Edge **) b;
+    const double TOLERANCE = 1e-6;
+    if( fabs( (*ea)->weight - (*eb)->weight ) < TOLERANCE) return 0;
+    return (*ea)->weight < (*eb)->weight ? -1 : 1;
+}
 
 void free_edge(Edge * e){
     free(e);

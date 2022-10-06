@@ -9,25 +9,27 @@ int main(int argc, char const *argv[])
 {
     Dict d;
     dict_init(d);
-    read_tsp_data(d, "a280.tsp");
+    read_tsp_data(d, "../exemplos/in/d18512.tsp");
 
-    printf("%s\n", (char *) dict_get(d, "NAME"));
-    printf("%s\n", (char *) dict_get(d, "COMMENT"));
-    printf("%s\n", (char *) dict_get(d, "TYPE"));
-    printf("%d\n", *( (int *) dict_get(d, "DIMENSION") ));
-    printf("%s\n", (char *) dict_get(d, "EDGE_WEIGHT_TYPE"));
+    // printf("%s\n", (char *) dict_get(d, "NAME"));
+    // printf("%s\n", (char *) dict_get(d, "COMMENT"));
+    // printf("%s\n", (char *) dict_get(d, "TYPE"));
+    // printf("%d\n", *( (int *) dict_get(d, "DIMENSION") ));
+    // printf("%s\n", (char *) dict_get(d, "EDGE_WEIGHT_TYPE"));
 
     PlanesPoint **pp = dict_get(d, "NODE_COORD_SECTION");
     int n = *( (int *) dict_get(d, "DIMENSION") );
-    for(int i = 0; i < n; i++){
-        print_planes_point(pp[i]);
-    }
-    putchar('\n');
+    // for(int i = 0; i < n; i++){
+    //     print_planes_point(pp[i]);
+    // }
+    // putchar('\n');
 
-    Edge **e = calculate_edges(d);
-    for(int i = 0; i < ( n * (n - 1) / 2 ); i++){
-        print_edge(e[i]);
-    }
+    // Edge **e = calculate_edges(d);
+    // qsort(e, n * (n - 1) / 2, sizeof(Edge *), &cmp_edge);
+
+    // for(int i = 0; i < ( n * (n - 1) / 2 ); i++){
+    //     print_edge(e[i]);
+    // }
 
     free(dict_get(d, "NAME"));
     free(dict_get(d, "COMMENT"));
@@ -40,10 +42,10 @@ int main(int argc, char const *argv[])
     }
     free(pp);
 
-    for(int i = 0; i < ( n * (n - 1) / 2 ); i++){
-        free_edge(e[i]);
-    }
-    free(e);
+    // for(int i = 0; i < ( n * (n - 1) / 2 ); i++){
+    //     free_edge(e[i]);
+    // }
+    // free(e);
 
     dict_delete(d);
     
