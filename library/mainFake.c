@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 #include "io.h"
 #include "PlanesPoint.h"
@@ -51,3 +51,4 @@ int main(int argc, char const *argv[])
     
     return 0;
 }
+ */

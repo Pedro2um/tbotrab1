@@ -36,7 +36,7 @@ void libera_inteiro(void * i){
     free((int*)i);
 }
 
-int cmp_edge(const void* a, const void* b){
+int cmp_edge_p(const void* a, const void* b){
     if(a == NULL || b == NULL) perror("AQUI\n");
     Edge* x = *((Edge**)a), *y = *((Edge**)b);
     double wx = get_weight_edge(x);
@@ -84,9 +84,9 @@ int main(int argc, char* argv[]){
    print_list_gen(l , printa_inteiro);
 
    free_info_plus_list_gen(l, libera_inteiro);*/
-
+    //puts("AQUI");
     const int N = 5;
-    const int SIZE = ceil(N*(N-1)/2.0);
+    const int SIZE = 10;
     printf("%d\n", SIZE);
     Edge* arr[SIZE];
 
@@ -109,7 +109,7 @@ int main(int argc, char* argv[]){
     size_t size = SIZE;
 
     //ordenação das arestas
-    qsort(arr, size, sizeof(Edge*), cmp_edge);
+    qsort(arr, size, sizeof(Edge*), cmp_edge_p);
     UF* dsu = initUnionFind(N);
     //iterar sobre o grafo
 
