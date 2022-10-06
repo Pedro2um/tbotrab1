@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 #include "io.h"
-#include "PlanesPointList.h"
+#include "PlanesPoint.h"
 
 #define NAME_KEY "NAME"
 #define COM_KEY "COMMENT"
@@ -14,7 +14,7 @@
 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
-static int _read_coord(PlanesPointList *coords, FILE *f, int max_coord, int cc);
+static int _read_coord(PlanesPoint **coords, FILE *f, int max_coord, int cc);
 
 void read_tsp_data(Dict d, char *tsp_file){
     FILE *f = fopen(tsp_file, "r");
@@ -57,7 +57,7 @@ void read_tsp_data(Dict d, char *tsp_file){
     free(coord_key);
 
     int max_coord = *( (int *) dict_get(d, DIM_KEY) );
-    PlanesPointList *coords = pp_list_init();
+    PlanesPoint **coords = (PlanesPoint **) malloc(max_coord * sizeof(PlanesPoint *));
     int cc = 1;
 
     while(_read_coord(coords, f, max_coord, cc)) cc++;
@@ -77,7 +77,7 @@ static char *_read_value(Dict d, FILE *f, char *key, int add_to_data){
     return value;
 }
 
-static int _read_coord(PlanesPointList *coords, FILE *f, int max_coord, int cc){
+static int _read_coord(PlanesPoint **coords, FILE *f, int max_coord, int cc){
     int i = 0;
     double x = 0.0, y = 0.0;
 
@@ -87,6 +87,6 @@ static int _read_coord(PlanesPointList *coords, FILE *f, int max_coord, int cc){
     }
 
     assert(i == cc && i <= max_coord);
-    pp_list_insert(coords, init_planes_point(i, x, y));
+    coords[cc - 1] = init_planes_point(i, x, y);
     return 1;
 }
