@@ -1,16 +1,16 @@
-ex:
+execute:
 	./prog
 
-c:
+compile:
 	gcc -c main.c ./library/*.c 
 	mv *.o ./dotObjects
 	gcc -o prog ./dotObjects/*.o -lm
-	clear
-cex:
-	make c
+
+cexecute:
+	make compile
 	./prog
 	
 clearObjects:
 	rm ./dotObjects/*.o
-exv:
+valgrind:
 	valgrind ./prog

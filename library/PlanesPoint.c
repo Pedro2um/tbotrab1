@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include <assert.h>
 #include "PlanesPoint.h"
 
 struct planesPoint{
@@ -13,6 +13,10 @@ struct planesPoint{
 
 PlanesPoint * init_planes_point(int id, double x, double y){
     PlanesPoint* p = (PlanesPoint*)malloc(sizeof(PlanesPoint));
+    if(p == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF P FAILED!\n");
+        assert(0);
+    }
     p->tuple[0] = x;
     p->tuple[1] = y;
     p->id = id;

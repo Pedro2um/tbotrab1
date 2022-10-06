@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Edge.h"
-#include "float.h"
-
+//#include "float.h"
+#include <assert.h>
 struct edge{
     int id_a;
     int id_b;
@@ -12,6 +12,10 @@ struct edge{
 
 Edge* init_edge(int id_a, int id_b, double weight){
     Edge* e = (Edge*)malloc(sizeof(Edge));
+    if(e == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF E FAILED!\n");
+        assert(0);
+    }
     e->id_a = id_a;
     e->id_b = id_b;
     e->weight = weight;
@@ -43,7 +47,7 @@ int get_id_a_edge(Edge* e){
     return e->id_a;
 }
 
-int get_ide_b_edge(Edge * e){
+int get_id_b_edge(Edge * e){
     if(e == NULL){
         printf("error, get_id_b_edge got a NULL edge pointer");
         return -1;
