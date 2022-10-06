@@ -13,3 +13,5 @@ cexecute:
 	
 clearObjects:
 	rm ./dotObjects/*.o
+val:
+	valgrind ./prog

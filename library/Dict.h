@@ -5,7 +5,7 @@
 
 typedef struct keyVal KeyVal;
 
-typedef KeyVal *Dict[DICT_SIZE];
+typedef KeyVal* Dict[DICT_SIZE];
 
 void dict_init(Dict d);
 

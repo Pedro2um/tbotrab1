@@ -2,7 +2,9 @@
 #include <stdlib.h>
 
 #include "./library/UnionFind.h"
-#include "./library/listaGen.h"
+#include "./library/ListaGen.h"
+#include "./library/Edge.h"
+#include "./library/PlanesPoint.h"
 
 void insere_inteiro(ListGen* l, int n ){
     int * p = (int*)malloc(sizeof(int));
@@ -64,6 +66,16 @@ int main(void){
     print_list_gen(l , printa_inteiro);
 
     free_info_plus_list_gen(l, libera_inteiro);
+
+    PlanesPoint * p = init_planes_point(1, 3, 0);
+    PlanesPoint * p2 = init_planes_point(2, 0, 4 );
+    Edge* e = init_edge(get_id_planes_point(p), get_id_planes_point(p2), distance_between_planes_point(p ,p2));
+
+    print_edge(e);
+
+    free_edge(e);
+    free_planes_point(p);
+    free_planes_point(p2);
 
     return 0;
 }
