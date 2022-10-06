@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <assert.h>
 #include "UnionFind.h"
 #define     in_range(x, N)          (x >= 0 && x < N)
 
@@ -13,11 +13,21 @@ struct uf{
 
 UF* initUnionFind(int n){
     UF* uf = (UF*)malloc(sizeof(UF));
-
+    if(uf == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF UF FAILED!\n");
+        assert(0);
+    }
     uf->size = n;
-    uf->vec = (int*)calloc(sizeof(int), n);
-    uf->weights = (int*)calloc(sizeof(int), n);
-    
+    uf->vec = (int*)malloc(sizeof(int)*n);
+    if(uf->vec == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF VEC FAILED!\n");
+        assert(0);
+    }
+    uf->weights = (int*)malloc(sizeof(int)*n);
+    if(uf->weights == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF WEIGHTS FAILED!\n");
+        assert(0);
+    }
     for(int i =0; i < n; i ++){
         uf->vec[i] = i;
         uf->weights[i] = 1;
@@ -37,14 +47,20 @@ void Union(UF* uf,  int a,int b){
     int * w = uf->weights;
     int * v = uf->vec;
 
-    if(w[ar] >= w[br]){
-        v[br] = ar;
-        w[ar] += w[br];
-    }else{
-        v[ar] = br;
-        w[br] += w[ar];
+    if(in_range(ar, uf->size) && in_range(br, uf->size)) {
+        if (w[ar] >= w[br]) {
+            v[br] = ar;
+            w[ar] += w[br];
+        } else {
+            v[ar] = br;
+            w[br] += w[ar];
+        }
     }
-
+    else{
+        if( in_range(ar, uf->size) == 0 ) fprintf(stderr, "ERROR, AR IS OUT OF BOUNDS!\n");
+        if( in_range(br, uf->size) == 0 ) fprintf(stderr, "ERROR, BR IS OUT OF BOUNDS!\n");
+        assert(0);
+    }
 
 }
 
