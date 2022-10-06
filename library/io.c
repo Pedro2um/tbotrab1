@@ -4,13 +4,7 @@
 #include <assert.h>
 #include "io.h"
 #include "PlanesPoint.h"
-
-#define NAME_KEY "NAME"
-#define COM_KEY "COMMENT"
-#define TYPE_KEY "TYPE"
-#define DIM_KEY "DIMENSION"
-#define EDGE_KEY "EDGE_WEIGHT_TYPE"
-#define COORD_KEY "NODE_COORD_SECTION"
+#include "dictKeys.h"
 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
