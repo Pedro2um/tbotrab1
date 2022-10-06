@@ -31,14 +31,14 @@ UF* minimum_spanning_tree(Edge** arr, int size, int N){
         int idb = get_id_b_edge(arr[i]);
 
         if(!Conected(dsu, ida , idb)){
-            printf("(u,v) = %d %d ", ida, idb);
-            puts(" YES");
+            /*printf("(u,v) = %d %d ", ida, idb);
+            puts(" YES");*/
             Union(dsu, ida, idb);
             cnt++;
         }
         //else puts(" NO");
     }
-    printf("%d\n", cnt);
+    //printf("%d\n", cnt);
 
     return dsu;
 }

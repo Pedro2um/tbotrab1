@@ -5,30 +5,30 @@
 #define     in_range(x, N)          (x >= 0 && x < N)
 
 struct uf{
-    int * vec;
-    int * weights;
+    unsigned short * vec;
+    unsigned short * weights;
     unsigned int size;
 };  
 
 
-UF* initUnionFind(int n){
+UF* initUnionFind(unsigned short n){
     UF* uf = (UF*)malloc(sizeof(UF));
     if(uf == NULL){
         fprintf(stderr, "ERROR, ALLOCATION OF UF FAILED!\n");
         assert(0);
     }
     uf->size = n;
-    uf->vec = (int*)malloc(sizeof(int)*n);
+    uf->vec = (unsigned short *)malloc(sizeof(unsigned short)*n);
     if(uf->vec == NULL){
         fprintf(stderr, "ERROR, ALLOCATION OF VEC FAILED!\n");
         assert(0);
     }
-    uf->weights = (int*)malloc(sizeof(int)*n);
+    uf->weights = (unsigned short*)malloc(sizeof(unsigned short)*n);
     if(uf->weights == NULL){
         fprintf(stderr, "ERROR, ALLOCATION OF WEIGHTS FAILED!\n");
         assert(0);
     }
-    for(int i =0; i < n; i ++){
+    for(unsigned short i =0; i < n; i ++){
         uf->vec[i] = i;
         uf->weights[i] = 1;
     }
@@ -39,13 +39,13 @@ UF* initUnionFind(int n){
 
 //o elemento passado é a posicao do vetor, mas o elemento 1 está na posicao 0, portanto, toda funcao que retorna um inteiro para o usuario, na verdade, esse 
 //inteiro menos 1 é a posicao real no vetor
-void Union(UF* uf,  int a,int b){
+void Union(UF* uf,  unsigned short a,unsigned short b){
     // por isso subtraimos 1 aqui 
-    int ar = Find(uf, a) - 1;
-    int br = Find(uf, b) - 1;
+    unsigned short ar = Find(uf, a) - 1;
+    unsigned short br = Find(uf, b) - 1;
 
-    int * w = uf->weights;
-    int * v = uf->vec;
+    unsigned short * w = uf->weights;
+    unsigned short * v = uf->vec;
 
     if(in_range(ar, uf->size) && in_range(br, uf->size)) {
         if (w[ar] >= w[br]) {
@@ -64,14 +64,14 @@ void Union(UF* uf,  int a,int b){
 
 }
 
-int Conected(UF* uf, int a, int b){
+unsigned short Conected(UF* uf, unsigned short a, unsigned short b){
     return (Find(uf, a) == Find(uf, b));
 }
 
 
-int Find(UF* uf, int a){
-    int * vec = uf->vec;
-    int i = a - 1;
+unsigned short Find(UF* uf, unsigned short a){
+    unsigned short * vec = uf->vec;
+    unsigned short i = a - 1;
     while (i != vec[i]){
         vec[i] = vec[vec[i]];
         i = vec[i];
@@ -88,18 +88,18 @@ void freeUnionFind(UF* uf){
 }
 
 void printUnionFind(UF* uf){
-    int * vec = uf->vec;
-    int * w = uf->weights;
+    unsigned short * vec = uf->vec;
+    unsigned short * w = uf->weights;
 
     printf("[ ");
-    for(int i =0; i < uf->size; i ++){
+    for(unsigned short i =0; i < uf->size; i ++){
         // pritna i + 1 porque o usuario pensa que o vetor comeca com o elemento igual a 1
         printf("%d ", vec[i] + 1);
     }
     printf("]\n");
 
      printf("[ ");
-    for(int i =0; i < uf->size; i ++){
+    for(unsigned short i =0; i < uf->size; i ++){
         printf("%d ", w[i]);
     }
     printf("]");

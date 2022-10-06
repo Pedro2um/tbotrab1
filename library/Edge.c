@@ -5,12 +5,12 @@
 //#include "float.h"
 #include <assert.h>
 struct edge{
-    int id_a;
-    int id_b;
-    double weight;
+    unsigned short id_a;
+    unsigned short id_b;
+    float weight;
 };
 
-Edge* init_edge(int id_a, int id_b, double weight){
+Edge* init_edge(unsigned short id_a, unsigned short id_b, float weight){
     Edge* e = (Edge*)malloc(sizeof(Edge));
     if(e == NULL){
         fprintf(stderr, "ERROR, ALLOCATION OF E FAILED!\n");
@@ -22,7 +22,7 @@ Edge* init_edge(int id_a, int id_b, double weight){
     return e;
 }
 
-double get_weight_edge(Edge* e){
+float get_weight_edge(Edge* e){
     if(e == NULL){
         printf("error, get_weight_edge got a NULL edge pointer");
         return 0;
@@ -39,7 +39,7 @@ void print_edge(Edge* e){
 }
 
 
-int get_id_a_edge(Edge* e){
+unsigned short get_id_a_edge(Edge* e){
     if(e == NULL){
         printf("error, get_id_a_edge got a NULL edge pointer");
         return -1;
@@ -47,7 +47,7 @@ int get_id_a_edge(Edge* e){
     return e->id_a;
 }
 
-int get_id_b_edge(Edge * e){
+unsigned short get_id_b_edge(Edge * e){
     if(e == NULL){
         printf("error, get_id_b_edge got a NULL edge pointer");
         return -1;
