@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
     double seconds = 0.0;
 
     start = clock();
-    read_tsp_data(d, "./exemplos/in/d18512.tsp");
+    read_tsp_data(d, "./exemplos/in/berlin52.tsp");
     end = clock();
     seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
     printf("read_tsp_data: %.4lf\n", seconds );
@@ -42,10 +42,7 @@ int main(int argc, char const *argv[])
     printf("dsu: %.4lf\n", seconds );
 
     free(dict_get(d, NAME_KEY));
-    free(dict_get(d, COM_KEY));
-    free(dict_get(d, TYPE_KEY));
     free(dict_get(d, DIM_KEY));
-    free(dict_get(d, EDGE_KEY));
 
     PlanesPoint **pp = dict_get(d, COORD_KEY);
     for(int i = 0; i < n; i++){
