@@ -4,6 +4,7 @@
 #include "Edge.h"
 //#include "float.h"
 #include <assert.h>
+
 struct edge{
     unsigned short id_a;
     unsigned short id_b;

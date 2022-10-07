@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "mst.h"
 #include "PlanesPoint.h"
-#include "dictKeys.h"
 #include "UnionFind.h"
 #include <stdio.h>
 #include <assert.h>
 
+// libera o vetor de pontos
 Edge **calculate_edges(Dict d, int size){
     PlanesPoint **pp = dict_get(d, COORD_KEY);
     int n = *((int *) dict_get(d, DIM_KEY));
@@ -20,11 +20,17 @@ Edge **calculate_edges(Dict d, int size){
         for(int j = i + 1; j < n; j++, k++){
             e[k] = init_edge(i + 1, j + 1, distance_between_planes_point(pp[i], pp[j]));
         }
+
+        free_planes_point(pp[i]);
     }
+
+    free_planes_point(pp[n - 1]);
+    free(pp);
 
     return e;
 }
 
+// libera o vetor de arestas
 UF* minimum_spanning_tree(Edge** arr, int size, int N){
     UF* dsu = initUnionFind(N);
     int cnt = 0;
@@ -40,8 +46,12 @@ UF* minimum_spanning_tree(Edge** arr, int size, int N){
             cnt++;
         }
         //else puts(" NO");
+
+        free_edge(arr[i]);
     }
     //printf("%d\n", cnt);
+
+    free(arr);
 
     return dsu;
 }

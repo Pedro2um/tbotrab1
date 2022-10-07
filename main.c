@@ -3,7 +3,6 @@
 #include <time.h>
 #include "./library/Dict.h"
 #include "./library/io.h"
-#include "./library/dictKeys.h"
 #include "./library/mst.h"
 #include "./library/PlanesPoint.h"
 
@@ -16,7 +15,7 @@ int main(int argc, char const *argv[])
     double seconds = 0.0;
 
     start = clock();
-    read_tsp_data(d, "./exemplos/in/berlin52.tsp");
+    read_tsp_data(d, "./exemplos/in/a280.tsp");
     end = clock();
     seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
     printf("read_tsp_data: %.4lf\n", seconds );
@@ -44,19 +43,7 @@ int main(int argc, char const *argv[])
     free(dict_get(d, NAME_KEY));
     free(dict_get(d, DIM_KEY));
 
-    PlanesPoint **pp = dict_get(d, COORD_KEY);
-    for(int i = 0; i < n; i++){
-        free_planes_point(pp[i]);
-    }
-    free(pp);
-
-    for(int i = 0; i < n * (n - 1) / 2; i++){
-        free_edge(e[i]);
-    }
-    free(e);
-
     freeUnionFind(dsu);
-
     dict_delete(d);
 
     return 0;
