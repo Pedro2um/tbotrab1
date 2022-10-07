@@ -46,5 +46,7 @@ int main(int argc, char const *argv[])
     freeUnionFind(dsu);
     dict_delete(d);
 
+    testa_matrix();
+    
     return 0;
 }

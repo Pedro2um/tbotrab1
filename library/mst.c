@@ -14,9 +14,9 @@ static int get_matrix_adj(MatrixAdj* m, int i , int j);
 
 static void print_matrix_adj(MatrixAdj* m );
 
-static void libera_matrix(MatrixAdj * m);
+static void free_matrix_adj(MatrixAdj * m);
 
-static void insert_matrix(MatrixAdj * m, int i, int j, int value);
+static void insert_matrix_adj(MatrixAdj * m, int i, int j, int value);
 
 
 
@@ -32,7 +32,9 @@ static MatrixAdj* init_matrix_adj(int size){
     int real_size = size*(size-1);
     real_size/=2;
 
+    m->size = size;
     m->array = (int*)calloc(sizeof(int)*real_size, 1);
+
     return m;
 }
 
@@ -68,15 +70,16 @@ static void print_matrix_adj(MatrixAdj* m ){
     }
 }
 
-static void libera_matrix(MatrixAdj * m){
+static void free_matrix_adj(MatrixAdj * m){
     free(m->array);
     free(m);
     return;
 }
 
-static void insert_matrix(MatrixAdj * m, int i, int j, int value){
+static void insert_matrix_adj(MatrixAdj * m, int i, int j, int value){
     int * matrix = m->array;
     int N = m->size;
+
     if(i == j) return;
     if(i > j){
         swap(i, j);
@@ -137,4 +140,20 @@ UF* minimum_spanning_tree(Edge** arr, int size, int N){
     free(arr);
 
     return dsu;
+}
+
+
+void testa_matrix(){
+    MatrixAdj * m = init_matrix_adj(10);
+
+    //int ret = get_matrix(minhaMatrix, 4 , 3, 5);
+    //printf("%d", ret);
+    
+    // 9 0 troca pra => 0 9
+    insert_matrix_adj(m, 9,0, 1);
+
+    print_matrix_adj(m);
+
+    free_matrix_adj(m);
+   
 }
