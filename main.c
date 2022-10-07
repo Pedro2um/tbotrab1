@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     double seconds = 0.0;
 
     start = clock();
-    read_tsp_data(d, "./exemplos/in/a280.tsp");
+    read_tsp_data(d, "./exemplos/in/pr1002.tsp");
     end = clock();
     seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
     printf("read_tsp_data: %.4lf\n", seconds );
