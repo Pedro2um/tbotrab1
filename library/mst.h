@@ -5,7 +5,7 @@
 #include "Edge.h"
 #include "UnionFind.h"
 
-void testa_matrix(void);
+// void testa_matrix(void);
 
 EdgesArray *calculate_edges(Dict d, int size);
 

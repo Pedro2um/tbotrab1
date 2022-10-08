@@ -2,18 +2,15 @@
 #define GRAPH_H
 
 typedef struct graph Graph;
-typedef struct vertex Vertex;
 
-Graph* init_graph(void);
+Graph* init_graph(int N);
 
-void add_vertex_to_graph(Graph * g, Vertex * v);
-
-void add_to_adjacency_list_of(Vertex * v1, Vertex * v2);
-
-unsigned short get_vertex_id(Vertex* v);
+void add_to_adjacency_list_of(unsigned short v1, unsigned short v2);
 
 void print_graph_elements(Graph* g);
 
+void dfs(Graph* g, unsigned short id);
 
+// void testa_matrix();
 
 #endif 

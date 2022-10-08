@@ -2,12 +2,9 @@ execute:
 	./prog
 
 compile:
-	gcc -c main.c ./library/*.c 
-	clear
+	gcc -c main.c ./library/*.c
 	mv *.o ./dotObjects
-	clear
 	gcc -o prog ./dotObjects/*.o -lm
-	clear
 
 cexecute:
 	make compile

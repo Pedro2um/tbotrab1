@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "mst.h": "c"
+        "mst.h": "c",
+        "planespoint.h": "c",
+        "graph.h": "c"
     }
 }
