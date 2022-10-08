@@ -3,6 +3,13 @@
 
 #define DICT_SIZE 13
 
+#define NAME_KEY "NAME"
+#define COM_KEY "COMMENT"
+#define TYPE_KEY "TYPE"
+#define DIM_KEY "DIMENSION"
+#define EDGE_KEY "EDGE_WEIGHT_TYPE"
+#define COORD_KEY "NODE_COORD_SECTION"
+
 typedef struct keyVal KeyVal;
 
 typedef KeyVal* Dict[DICT_SIZE];

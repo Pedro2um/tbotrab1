@@ -4,7 +4,6 @@
 #include <assert.h>
 #include "io.h"
 #include "PlanesPoint.h"
-#include "dictKeys.h"
 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
@@ -21,14 +20,16 @@ void read_tsp_data(Dict d, char *tsp_file){
     _read_value(d, f, NAME_KEY, 1);
 
     // Read the comments
-    _read_value(d, f, COM_KEY, 1);
+    char *com_val = _read_value(d, f, COM_KEY, 0);
+    free(com_val);
 
     // Read the type
-    char *type_val = _read_value(d, f, TYPE_KEY, 1);
+    char *type_val = _read_value(d, f, TYPE_KEY, 0);
     if(strcmp(type_val, "TSP") != 0){
         printf("ERROR: Not an instance of symmetric TSP!");
         exit(EXIT_FAILURE);
     }
+    free(type_val);
 
     // Read the dimension
     char *dim_val = _read_value(d, f, DIM_KEY, 0);
@@ -38,11 +39,12 @@ void read_tsp_data(Dict d, char *tsp_file){
     free(dim_val);
 
     // Read the edge type
-    char *edge_val = _read_value(d, f, EDGE_KEY, 1);
+    char *edge_val = _read_value(d, f, EDGE_KEY, 0);
     if(strcmp(edge_val, "EUC_2D") != 0){
         printf("ERROR: Weights are not Euclidian distances in 2D!");
         exit(EXIT_FAILURE);
     }
+    free(edge_val);
 
     // Read the coordinates
     char *coord_key = NULL;
