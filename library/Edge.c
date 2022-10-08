@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Edge.h"
-//#include "float.h"
 #include <assert.h>
+
+static int _cmp_edge(const void *a, const void *b);
+
 struct edge{
     unsigned short id_a;
     unsigned short id_b;
@@ -55,13 +57,42 @@ unsigned short get_id_b_edge(Edge * e){
     return e->id_b;
 }
 
-int cmp_edge(const void *a, const void *b){
-    Edge **ea = (Edge **) a, **eb = (Edge **) b;
-    const double TOLERANCE = 1e-6;
-    if( fabs( (*ea)->weight - (*eb)->weight ) < TOLERANCE) return 0;
-    return (*ea)->weight < (*eb)->weight ? -1 : 1;
+void free_edge(Edge * e){
+    free(e);
 }
 
-void free_edge(Edge * e){
+static int _cmp_edge(const void *a, const void *b){
+    Edge *ea = (Edge *) a, *eb = (Edge *) b;
+    const double TOLERANCE = 1e-6;
+    if( fabs( ea->weight - eb->weight ) < TOLERANCE) return 0;
+    return ea->weight < eb->weight ? -1 : 1;
+}
+
+
+EdgesArray *init_edges_array(int N){
+    EdgesArray *e = (EdgesArray *) malloc(N * sizeof(Edge));
+    if(e == NULL){
+        fprintf(stderr, "ERROR, ALLOCATION OF E FAILED!\n");
+        assert(0);
+    }
+
+    return e;
+}
+
+void set_edges_array(EdgesArray *e, int index, unsigned  short id_a, unsigned short id_b, float weight){
+    e[index].id_a = id_a;
+    e[index].id_b = id_b;
+    e[index].weight = weight;
+}
+
+EdgesArray *get_edges_array(EdgesArray *e, int index){
+    return &e[index];
+}
+
+void sort_edges_array(EdgesArray *e, int size){
+    qsort(e, size, sizeof(Edge), _cmp_edge);
+}
+
+void free_edges_array(EdgesArray *e){
     free(e);
 }

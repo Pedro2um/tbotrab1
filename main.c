@@ -24,13 +24,17 @@ int main(int argc, char const *argv[])
     int n = *((int *) dict_get(d, DIM_KEY));
 
     start = clock();
-    Edge **e = calculate_edges(d, n * (n - 1) / 2);
+    EdgesArray *e = calculate_edges(d, n * (n - 1) / 2);
     end = clock();
     seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
     printf("calculate_edges: %.4lf\n", seconds );
 
+    PlanePointsArray *pp = dict_get(d, COORD_KEY);
+    free_plane_points_array(pp);
+
     start = clock();
-    qsort(e, n * (n - 1) / 2, sizeof(Edge *), cmp_edge);
+    // qsort(e, n * (n - 1) / 2, sizeof(Edge *), cmp_edge);
+    sort_edges_array(e, n * (n - 1) / 2);
     end = clock();
     seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
     printf("qsort: %.4lf\n", seconds );
@@ -47,16 +51,7 @@ int main(int argc, char const *argv[])
     free(dict_get(d, DIM_KEY));
     free(dict_get(d, EDGE_KEY));
 
-    PlanesPoint **pp = dict_get(d, COORD_KEY);
-    for(int i = 0; i < n; i++){
-        free_planes_point(pp[i]);
-    }
-    free(pp);
-
-    for(int i = 0; i < n * (n - 1) / 2; i++){
-        free_edge(e[i]);
-    }
-    free(e);
+    free_edges_array(e);
 
     freeUnionFind(dsu);
 

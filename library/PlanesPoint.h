@@ -2,6 +2,7 @@
 #define PLANES_POINT_H
 
 typedef struct planesPoint PlanesPoint;
+typedef PlanesPoint PlanePointsArray;
 
 // cria um ponto do plano que contem um id e suas cordenadas
 PlanesPoint * init_planes_point(unsigned short id, float x, float y);
@@ -27,5 +28,12 @@ void copy_to_planes_point(PlanesPoint * p1, PlanesPoint* p2);
 unsigned short get_id_planes_point(PlanesPoint* p);
 
 
+PlanePointsArray *init_plane_points_array(int N);
+
+void set_plane_points_array(PlanePointsArray *p, int index, unsigned short id, float x, float y);
+
+PlanePointsArray *get_plane_points_array(PlanePointsArray *p, int index);
+
+void free_plane_points_array(PlanePointsArray *p);
 
 #endif 
