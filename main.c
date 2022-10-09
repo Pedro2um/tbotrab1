@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
         arr[i] = (i+1) * (i+1) - i;
     //1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     //insertion_sort(arr, sizeof(arr), sizeof(int), cmp_int);
-    heap_sort(arr, sizeof(arr), sizeof(int), cmp_int);
+    sort(arr, sizeof(arr), sizeof(int), cmp_int);
     for(int i = 0; i < n; i++){
         printf(" %d", arr[i]);
         printf("%s", (i == n-1?"\n":""));
