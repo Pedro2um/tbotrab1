@@ -158,25 +158,12 @@ void heap_sort(void *arr, size_t data_size, size_t element_size, int(*compare)(v
     size_t n = data_size/element_size;
 
     heapify(arr, data_size, element_size, compare);
-
     long long end = n-1;
-    int flag = 0;
     while(end > 0){
-        //if(!max_property_satisfied(arr, element_size, 0, end, compare)) {
         gen_swap(element(arr, element_size, 0), element(arr, element_size, end), element_size);
-        //flag = 1;
-        //}
         end--;
-        //if(flag == 1) {
-            sift_down(0, end, arr, data_size, element_size, compare);
-            flag = 0;
-        //}
+        sift_down(0, end, arr, data_size, element_size, compare);
     }
-
-
-
-
-
 }
 
 // from:

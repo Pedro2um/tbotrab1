@@ -10,10 +10,11 @@
 #include "./library/Graph.h"
 
 int cmp_int(void * x, void * y);
+int Rand(int a, int b);
 
 int main(int argc, char *argv[])
 {   
-    /*if(argc <= 1){
+    if(argc <= 1){
         fprintf(stderr, "ERROR, NO ARGV [1]!\n");
          exit(1);
     }
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
     sort_edges_array(e, total_edges);
     end = clock();
     seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
-    printf("qsort: %.4lf\n", seconds );
+    printf("sort: %.4lf\n", seconds );
 
     start = clock();
     UF *dsu = minimum_spanning_tree(e, total_edges, n);
@@ -64,11 +65,16 @@ int main(int argc, char *argv[])
     dict_delete(d);
 
     //testa_matrix();
-    */
-    int n = 20;
+
+
+
+    // itoa
+    // atoi
+    /*srand( atoi(argv[1]) );
+    int n = 1000;
     int arr[n];
     for(int i = 0; i < n; i++)
-        arr[i] = (i+1) * (i+1) - i;
+        arr[i] = Rand(0, n);
     //1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     //insertion_sort(arr, sizeof(arr), sizeof(int), cmp_int);
     sort(arr, sizeof(arr), sizeof(int), cmp_int);
@@ -76,7 +82,7 @@ int main(int argc, char *argv[])
         printf(" %d", arr[i]);
         printf("%s", (i == n-1?"\n":""));
     }
-
+    */
     return 0;
 }
 
@@ -93,4 +99,8 @@ int cmp_int(void * x, void * y){
     int X = *((int*)x);
     int Y = *((int*)y);
     return (X-Y); // 1 == x > y, 0 == x =y, -1 == x < y
+}
+
+int Rand(int a, int b){
+    return a + rand()%(b-a+1);
 }
