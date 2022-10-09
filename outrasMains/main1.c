@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 
 #define swap(x, y) if(1){int aux = x; x = y; y = aux;}
@@ -72,3 +72,4 @@ int main(void){
     libera_matrix(minhaMatrix);
     return 0;
 }
+ */

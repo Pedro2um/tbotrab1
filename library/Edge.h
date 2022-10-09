@@ -21,6 +21,7 @@ EdgesArray *init_edges_array(int N);
 
 void set_edges_array(EdgesArray *e, int index, unsigned  short id_a, unsigned short id_b, float weight);
 
+
 EdgesArray *get_edges_array(EdgesArray *e, int index);
 
 void sort_edges_array(EdgesArray *e, int size);
