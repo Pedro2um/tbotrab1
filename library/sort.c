@@ -2,9 +2,10 @@
 // Created by user on 10/7/2022.
 //
 #include "sort.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <math.h>
 
 // Used for generic array
 #define     element(arr, size, i)                                 (arr + (size*i) )
@@ -19,12 +20,74 @@
 #define     min_property_satisfied(arr, size, i, j, compare)      ( property(arr, size, i, j, compare) < 0 )
 
 
+static long long fast_log2(long long n){
+    long long cnt = 0;
+    if(n == 1){
+        return 0;
+    }
+    else if(n == 0){
+        return (long long)INFINITY;
+    }
+    while(n > 0){
+        n >>= 1LL;
+        cnt++;
+    }
+    return cnt;
+}
+
+
+// from:
+// https://www.programmingalgorithms.com/algorithm/intro-sort/c/
+static long long partition(long long left, long long right, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+    char* pivot = malloc(element_size);
+    if(pivot == NULL){
+        perror("PIVOT IS NULL");
+        exit(1);
+    }
+    memcpy(pivot, element(arr, element_size, right), element_size);
+
+    char* temp = malloc(element_size);
+    if(temp == NULL){
+        perror("PIVOT IS NULL");
+        exit(1);
+    }
+
+    char* temp2 = malloc(element_size);
+    if(temp2 == NULL){
+        perror("TEMP2 IS NULL");
+        exit(1);
+    }
+    long long i = left;
+
+    /*char* data = malloc(element_size);
+    if(data == NULL){
+        perror("DATA IS NULL");
+        exit(1);
+    }
+    */
+    for(long long j = left; j < right; ++j){
+        memcpy(temp2, element(arr, element_size, j), element_size);
+        if(compare(temp2, pivot) <= 0){
+            gen_swap(element(arr, element_size, i), element(arr, element_size, j), element_size);
+            i++;
+        }
+    }
+
+    memcpy(element(arr, element_size, right), element(arr, element_size, i), element_size);
+    memcpy(element(arr, element_size, i), pivot, element_size);
+
+    free(pivot);
+    free(temp);
+    free(temp2);
+
+    return i;
+}
+
 
 // from
 // https://www.mygreatlearning.com/blog/heap-sort/
-
-static void sift_down(long long idx, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
-    size_t n = data_size/element_size;
+static void sift_down(long long idx, long long end, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+    size_t n = end+1;
     long long i = idx, j = 0;
     while( 2*i + 1 < n ){
         //troublesome child
@@ -43,11 +106,13 @@ static void sift_down(long long idx, void* arr, size_t data_size, size_t element
     }
 }
 
+// from:
+// https://rosettacode.org/wiki/Sorting_algorithms/Heapsort
 static void heapify(void *arr, size_t data_size, size_t element_size, int(*compare)(void * x, void * y)){
     long long n = data_size/element_size;
     long long start = ((n-2)/2);
     while(start >= 0){
-        sift_down(start, arr, data_size, element_size, compare);
+        sift_down(start, n-1, arr, data_size, element_size, compare);
         start--;
     }
 }
@@ -87,6 +152,8 @@ void insertion_sort(void *arr, size_t data_size, size_t element_size, int(*compa
     free(key);
 }
 
+// from:
+// https://www.youtube.com/watch?v=JNQmKZE7blY
 void heap_sort(void *arr, size_t data_size, size_t element_size, int(*compare)(void * x, void * y)){
     size_t n = data_size/element_size;
 
@@ -95,25 +162,50 @@ void heap_sort(void *arr, size_t data_size, size_t element_size, int(*compare)(v
     long long end = n-1;
     int flag = 0;
     while(end > 0){
-        if(!max_property_satisfied(arr, element_size, 0, end, compare)) {
-            gen_swap(element(arr, element_size, 0), element(arr, element_size, end), element_size);
-            flag = 1;
-        }
+        //if(!max_property_satisfied(arr, element_size, 0, end, compare)) {
+        gen_swap(element(arr, element_size, 0), element(arr, element_size, end), element_size);
+        //flag = 1;
+        //}
         end--;
-        if(flag == 1) {
-            sift_down(0, arr, data_size, element_size, compare);
+        //if(flag == 1) {
+            sift_down(0, end, arr, data_size, element_size, compare);
             flag = 0;
-        }
-
+        //}
     }
+
+
+
+
 
 }
 
+// from:
+// https://www.programmingalgorithms.com/algorithm/intro-sort/c/
+// TODO: Make a iterative version instead
+void rec_quick_sort(long long left, long long right, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+    if(left < right){
+        long long q = partition(left, right, arr, data_size, element_size, compare);
+        rec_quick_sort(left, q - 1, arr, data_size, element_size, compare);
+        rec_quick_sort(q+1, right, arr, data_size, element_size, compare);
+    }
+}
+
+// from:
+// https://www.programmingalgorithms.com/algorithm/intro-sort/c/
 void sort(void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
-    if(data_size/element_size < 16){
+    long long n = data_size/element_size;
+    long long last = n - 1;
+    long long partition_size = partition(0, last, arr, data_size, element_size, compare);
+    if( partition_size < 16){
+        fprintf(stdout, "INSERTION SORT:\n");
         insertion_sort(arr, data_size, element_size, compare);
     }
-    else {
+    else if(partition_size > (long long)(2LL * fast_log2(n) )) {
+        fprintf(stdout, "HEAP SORT:\n");
         heap_sort(arr, data_size, element_size, compare);
+    }
+    else{
+        fprintf(stdout, "QUICK SORT:\n");
+        rec_quick_sort(0, last, arr, data_size, element_size, compare);
     }
 }

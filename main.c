@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
     //testa_matrix();
     */
-    int n = 8;
+    int n = 20;
     int arr[n];
     for(int i = 0; i < n; i++)
         arr[i] = (i+1) * (i+1) - i;
