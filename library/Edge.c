@@ -90,8 +90,8 @@ EdgesArray *get_edges_array(EdgesArray *e, int index){
 }
 
 void sort_edges_array(EdgesArray *e, int size){
-    //qsort(e, size, sizeof(Edge), _cmp_edge);
-    sort(e, size, sizeof(EdgesArray), _cmp_edge);
+    qsort(e, size, sizeof(Edge), _cmp_edge);
+    // sort(e, size, sizeof(EdgesArray), _cmp_edge);
 }
 
 void free_edges_array(EdgesArray *e){

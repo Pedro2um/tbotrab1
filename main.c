@@ -13,7 +13,7 @@ int cmp_int(void * x, void * y);
 int Rand(int a, int b);
 
 int main(int argc, char *argv[])
-{   
+{
     if(argc <= 1){
         fprintf(stderr, "ERROR, NO ARGV [1]!\n");
          exit(1);

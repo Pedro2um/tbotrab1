@@ -2,8 +2,10 @@
 #include "mst.h"
 #include "PlanesPoint.h"
 #include "UnionFind.h"
+#include "Graph.h"
 #include <stdio.h>
 #include <assert.h>
+#include <time.h>
 
 // #define swap(x, y) if(1){int aux = i; i = j; j = aux;}
 // typedef struct matrixAdj MatrixAdj;
@@ -110,6 +112,7 @@ EdgesArray *calculate_edges(Dict d, int size){
 }
 
 UF* minimum_spanning_tree(EdgesArray* arr, int size, int N){
+    Graph *g = init_graph(N);
     UF* dsu = initUnionFind(N);
     int cnt = 0;
     //iterar sobre o grafo
@@ -122,10 +125,21 @@ UF* minimum_spanning_tree(EdgesArray* arr, int size, int N){
             // puts(" YES");
             Union(dsu, ida, idb);
             cnt++;
+            
+            add_to_adjacency_list_of(g, ida - 1, idb - 1);
         }
         //else puts(" NO");
     }
-    //printf("%d\n", cnt);
+    //printf("%d\n", cnt);    
+
+    clock_t start = clock();
+    dfs(g, 0);
+    clock_t end = clock();
+    double seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
+    printf("dfs: %.4lf\n", seconds );
+
+    // print_graph_elements(g);
+    free_graph(g);
 
     return dsu;
 }

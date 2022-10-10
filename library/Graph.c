@@ -7,22 +7,10 @@ typedef unsigned char MatrixAdj;
 typedef unsigned char Vertex;
 
 struct graph{
-    // o vertice é um vetor de char, a posicao do vetor
-    // é o id do vertice e o conteudo da posicao é o campo de finalizado
-    // 1 para finalizado 0 para nao
     Vertex *v;
-
-    //tamanho do vetor de vertice
     unsigned int v_size;
-
-    // a matriz tambem é um vetor de char, matheus fez
-    // os calculos de posicao
     MatrixAdj *adj;
-
-    // esse é o vetor que vai salvar o tour pela dfs
     unsigned short *tour;
-
-    // posicao atual no tour
     unsigned short tour_p;
 };
 
@@ -36,26 +24,43 @@ static void insert_matrix_adj(MatrixAdj * m, int size, int i, int j, int value);
 
 static void free_matrix_adj(MatrixAdj * m);
 
+Graph* init_graph(int N){
+    Graph *g = (Graph *) malloc(sizeof(Graph));
 
-Graph* init_graph(int N);
+    g->v = (Vertex *) calloc(N, sizeof(Vertex));
+    g->v_size = N;
+    g->adj = (MatrixAdj *) calloc(N * (N - 1) / 2, sizeof(MatrixAdj));
+    g->tour = (unsigned short *) malloc(N * sizeof(unsigned short));
+    g->tour_p = 0;
 
-void add_to_adjacency_list_of(unsigned short v1, unsigned short v2);
+    return g;
+}
 
-void print_graph_elements(Graph* g);
+void add_to_adjacency_list_of(Graph* g, unsigned short id1, unsigned short id2){
+    insert_matrix_adj(g->adj, g->v_size, id1, id2, 1);
+}
+
+void print_graph_elements(Graph* g){
+    for(int i = 0; i < g->tour_p; i++){
+        printf("%d\n", g->tour[i] + 1);
+    }
+}
 
 void dfs(Graph* g, unsigned short id){
-    // adiciona o id do vertice atual ao vetor de tour
     g->tour[g->tour_p++] = id;
+    g->v[id] = 1;
 
-    // pra cada vertice ele tenta caminhar
-    for(int i = id + 1; i < g->v_size; i++){
-        // mas so caminha se for adjacente e nao tiver sido finalizado
+    for(int i = 0; i < g->v_size; i++){
         if(get_matrix_adj(g->adj, g->v_size, id, i) && !g->v[i])
             dfs(g, i);
-    }
+    }    
+}
 
-    // marca o vertice como finalizado
-    g->v[id] = 1;
+void free_graph(Graph* g){
+    free(g->v);
+    free(g->adj);
+    free(g->tour);
+    free(g);
 }
 
 static MatrixAdj* init_matrix_adj(int size){
