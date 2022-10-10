@@ -85,6 +85,6 @@ static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc)
 
     assert(i == cc && i <= max_coord);
     // coords[cc - 1] = init_planes_point(i, x, y);
-    set_plane_points_array(coords, cc - 1, i, x, y);
+    set_plane_points_array(coords, i - 1, x, y);
     return 1;
 }

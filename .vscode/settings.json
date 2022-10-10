@@ -2,6 +2,7 @@
     "files.associations": {
         "mst.h": "c",
         "planespoint.h": "c",
-        "graph.h": "c"
+        "graph.h": "c",
+        "stdio.h": "c"
     }
 }

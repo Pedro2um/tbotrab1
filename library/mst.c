@@ -99,12 +99,7 @@ EdgesArray *calculate_edges(Dict d, int size){
     for(int i = 0, k = 0; i < n - 1; i++){
         for(int j = i + 1; j < n; j++, k++){
             // e[k] = init_edge(i + 1, j + 1, distance_between_planes_point(pp[i], pp[j]));
-            set_edges_array(e, k, i + 1, j + 1,
-                distance_between_planes_point(
-                    get_plane_points_array(pp, i),
-                    get_plane_points_array(pp, j)
-                )
-            );
+            set_edges_array(e, k, i + 1, j + 1, distance_between_plane_points(pp, i, j));
         }
     }
 
