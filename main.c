@@ -9,6 +9,14 @@
 #include "./library/PlanesPoint.h"
 #include "./library/Graph.h"
 
+int cmp(void* x, void* y){
+    int a = *((int*)x);
+    int b = *((int*)y);
+    if(a > b) return 1;
+    else if(a < b) return -1;
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     if(argc <= 1){
@@ -16,7 +24,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    Dict d;
+    /*Dict d;
     dict_init(d);
 
     clock_t start = 0, end = 0;
@@ -76,5 +84,21 @@ int main(int argc, char *argv[])
     fclose(tour_file);
 
     free_graph(minimum_graph);
+     */
+    int n = atoi(argv[1]);
+
+    int arr[n];
+
+    srand(atoi(argv[1]));
+    for(int i = 0; i < n; i++)
+        arr[i] = rand()%(i+1), printf(" %d%s", arr[i], (i == (n-1)? "\n" : "" ));
+
+    //heap_sort(arr, sizeof(arr), sizeof(int), cmp);
+    sort(arr, sizeof(arr), sizeof(int), cmp);
+
+    for(int i = 0; i < n; i++)
+        printf(" %d%s", arr[i], (i == (n-1)? "\n" : ""));
+
+
     return 0;
 }
