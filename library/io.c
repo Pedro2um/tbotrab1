@@ -102,25 +102,30 @@ FILE* write_header(Dict d, char * dir, char * type)
     char * my_type[2];
 
     if(strcmp(type, "MST") == 0 ){
-        my_type[0] = (char*)TYPE_MST[0];
-        my_type[1] = (char*)TYPE_MST[1];
+        my_type[0] = strdup(TYPE_MST[0]);
+        my_type[1] = strdup(TYPE_MST[1]);
     } else{
-        my_type[0] = (char*)TYPE_TOUR[0];
-        my_type[1] = (char*)TYPE_TOUR[1];
+        my_type[0] = strdup(TYPE_TOUR[0]);
+        my_type[1] = strdup(TYPE_TOUR[1]);
     }
 
     char * file_name = dict_get(d, NAME_KEY);
-    char * file_dir = (char*)malloc(sizeof(char)*(strlen(dir) + (strlen(file_name) + (7)))); // falta strlen(dir)
 
-    if(dir == NULL || strlen(dir) ==0) sprintf(file_dir,"./%s%s",file_name, my_type[1]);
+    int size_dir = 0;
+
+    if(dir != NULL){
+        size_dir = strlen(dir);
+    }
+
+    int file_dir_size = size_dir + strlen(file_name) + strlen(my_type[1]) + (3);
+    char * file_dir = (char*)malloc(sizeof(char)*(file_dir_size));
+
+    if(size_dir == 0) sprintf(file_dir,"./%s%s",file_name, my_type[1]);
 
     else sprintf(file_dir,"%s/%s%s", dir, file_name, my_type[1]);
 
-    
     printf("\n%s\n", file_dir);
-
-
-
+    
     FILE* out_file =  fopen(file_dir, "wb");
     fprintf(out_file,"NAME: %s\n", file_name);
     fprintf(out_file,"TYPE: %s\n", my_type[0]);
@@ -128,6 +133,8 @@ FILE* write_header(Dict d, char * dir, char * type)
     fprintf(out_file, "%s_SECTION\n", my_type[0]);
 
     free(file_dir);
+    free(my_type[0]);
+    free(my_type[1]);
 
     return out_file;
 }
