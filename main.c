@@ -66,7 +66,12 @@ int main(int argc, char *argv[])
     free(dict_get(d, EDGE_KEY));
     dict_delete(d);
 
+    start = clock();
     dfs(minimum_graph, tour_file);
+    end = clock();
+    seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
+    printf("dfs: %.4lf\n", seconds );
+
     fprintf(tour_file,"EOF\n");
     fclose(tour_file);
 
