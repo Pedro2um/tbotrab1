@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "io.h"
 #include "PlanesPoint.h"
+#include "Edge.h"
 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
@@ -87,4 +88,46 @@ static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc)
     // coords[cc - 1] = init_planes_point(i, x, y);
     set_plane_points_array(coords, i - 1, x, y);
     return 1;
+}
+
+
+
+
+
+FILE* write_header(Dict d, char * dir, char * type)
+{
+    const char* TYPE_TOUR[2] = {"TOUR", ".tour"};
+    const char * TYPE_MST[2] = {"MST", ".mst"};
+
+    char * my_type[2];
+
+    if(strcmp(type, "MST") == 0 ){
+        my_type[0] = (char*)TYPE_MST[0];
+        my_type[1] = (char*)TYPE_MST[1];
+    } else{
+        my_type[0] = (char*)TYPE_TOUR[0];
+        my_type[1] = (char*)TYPE_TOUR[1];
+    }
+
+    char * file_name = dict_get(d, NAME_KEY);
+    char * file_dir = (char*)malloc(sizeof(char)*(strlen(dir) + (strlen(file_name) + (7)))); // falta strlen(dir)
+
+    if(dir == NULL || strlen(dir) ==0) sprintf(file_dir,"./%s%s",file_name, my_type[1]);
+
+    else sprintf(file_dir,"%s/%s%s", dir, file_name, my_type[1]);
+
+    
+    printf("\n%s\n", file_dir);
+
+
+
+    FILE* out_file =  fopen(file_dir, "wb");
+    fprintf(out_file,"NAME: %s\n", file_name);
+    fprintf(out_file,"TYPE: %s\n", my_type[0]);
+    fprintf(out_file, "DIMENSION: %d\n", *((int*)dict_get(d, DIM_KEY)));
+    fprintf(out_file, "%s_SECTION\n", my_type[0]);
+
+    free(file_dir);
+
+    return out_file;
 }

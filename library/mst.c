@@ -106,7 +106,7 @@ EdgesArray *calculate_edges(Dict d, int size){
     return e;
 }
 
-Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N){
+Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N, FILE* output_file){
     Graph *g = init_graph(N);
     UF* dsu = initUnionFind(N);
     int cnt = 0;
@@ -118,6 +118,7 @@ Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N){
         if(!Conected(dsu, ida , idb)){
             // printf("%d %d\n", ida, idb);
             // puts(" YES");
+            fprintf(output_file, "%d %d\n", ida, idb);
             Union(dsu, ida, idb);
             cnt++;
             

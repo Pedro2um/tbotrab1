@@ -31,7 +31,7 @@ static void insert_matrix_adj(MatrixAdj *m, int size, int i, int j, int value);
 
 static void free_matrix_adj(MatrixAdj *m);
 
-static void private_dfs_(Graph *g, unsigned short id);
+static void private_dfs_(Graph *g, unsigned short id, FILE* outuput_file);
 
 Graph *init_graph(int N)
 {
@@ -59,21 +59,22 @@ void print_graph_elements(Graph *g)
     }
 }
 
-void dfs(Graph *g)
+void dfs(Graph *g, FILE* output_file)
 {
-    private_dfs_(g, 0);
+    private_dfs_(g, 0, output_file);
 }
 
-void private_dfs_(Graph *g, unsigned short id)
+void private_dfs_(Graph *g, unsigned short id, FILE* output_file)
 {
     g->tour[g->tour_p++] = id;
     g->v[id] = 1;
     printf("%d ", id + 1);
+    fprintf(output_file,"%d\n", id + 1);
 
     for (int i = 0; i < g->v_size; i++)
     {
         if (get_matrix_adj(g->adj, g->v_size, id, i) && !g->v[i])
-            private_dfs_(g, i);
+            private_dfs_(g, i, output_file);
     }
 }
 
@@ -145,7 +146,6 @@ static void insert_matrix_adj(MatrixAdj *m, int size, int i, int j, int value)
 
 static void free_matrix_adj(MatrixAdj *m)
 {
-    print_matrix_adj(m, 52);
     free(m);
 }
 

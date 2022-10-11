@@ -49,22 +49,31 @@ int main(int argc, char *argv[])
     seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
     printf("sort: %.4lf\n", seconds );
 
+    FILE* mst_file = write_header(d, "saidas", "MST");
+
     start = clock();
-    Graph* minimum_graph = minimum_spanning_tree(e, total_edges, n);
+    Graph* minimum_graph = minimum_spanning_tree(e, total_edges, n, mst_file);
     end = clock();
     seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
     printf("dsu: %.4lf\n", seconds );
 
+  
+    fprintf(mst_file,"EOF\n");
+    fclose(mst_file);
+    free_edges_array(e);
+
+    //inicializa um arquivo com um determinado cabeçalho e o retorna
+    FILE* tour_file = write_header(d ,"saidas", "TOUR");
+
     free(dict_get(d, NAME_KEY));
     free(dict_get(d, DIM_KEY));
     free(dict_get(d, EDGE_KEY));
-
-    free_edges_array(e);
-
     dict_delete(d);
 
-    dfs(minimum_graph);
 
+    dfs(minimum_graph, tour_file);
+    fprintf(tour_file,"EOF\n");
+    fclose(tour_file);
 
     free_graph(minimum_graph);
     //testa_matrix();

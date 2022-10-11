@@ -10,6 +10,6 @@
 EdgesArray *calculate_edges(Dict d, int size);
 
 //vai retornar um grafo representando a arvore 
-Graph * minimum_spanning_tree(EdgesArray* arr, int size, int N);
+Graph * minimum_spanning_tree(EdgesArray* arr, int size, int N, FILE* output_file);
 
 #endif
