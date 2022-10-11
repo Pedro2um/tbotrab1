@@ -106,7 +106,7 @@ EdgesArray *calculate_edges(Dict d, int size){
     return e;
 }
 
-UF* minimum_spanning_tree(EdgesArray* arr, int size, int N){
+Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N){
     Graph *g = init_graph(N);
     UF* dsu = initUnionFind(N);
     int cnt = 0;
@@ -127,16 +127,15 @@ UF* minimum_spanning_tree(EdgesArray* arr, int size, int N){
     }
     //printf("%d\n", cnt);    
 
-    clock_t start = clock();
-    dfs(g, 0);
-    clock_t end = clock();
-    double seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
-    printf("dfs: %.4lf\n", seconds );
+    // clock_t start = clock();
+    // dfs(g, 0);
+    // clock_t end = clock();
+    // double seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
+    // printf("dfs: %.4lf\n", seconds );
 
     // print_graph_elements(g);
-    free_graph(g);
-
-    return dsu;
+    freeUnionFind(dsu);
+    return g;
 }
 
 // void testa_matrix(){

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     printf("sort: %.4lf\n", seconds );
 
     start = clock();
-    UF *dsu = minimum_spanning_tree(e, total_edges, n);
+    Graph* minimum_graph = minimum_spanning_tree(e, total_edges, n);
     end = clock();
     seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
     printf("dsu: %.4lf\n", seconds );
@@ -61,9 +61,12 @@ int main(int argc, char *argv[])
 
     free_edges_array(e);
 
-    freeUnionFind(dsu);
     dict_delete(d);
 
+    dfs(minimum_graph);
+
+
+    free_graph(minimum_graph);
     //testa_matrix();
 
 
