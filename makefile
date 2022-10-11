@@ -2,9 +2,9 @@ execute:
 	./prog
 
 compile:
-	gcc -c main.c ./library/*.c
+	gcc -Wall -c main.c ./library/*.c
 	mv *.o ./dotObjects
-	gcc -o prog ./dotObjects/*.o -lm
+	gcc -Wall -o prog ./dotObjects/*.o -lm
 
 cexecute:
 	make compile

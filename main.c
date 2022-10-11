@@ -9,14 +9,11 @@
 #include "./library/PlanesPoint.h"
 #include "./library/Graph.h"
 
-int cmp_int(void * x, void * y);
-int Rand(int a, int b);
-
 int main(int argc, char *argv[])
 {
     if(argc <= 1){
         fprintf(stderr, "ERROR, NO ARGV [1]!\n");
-         exit(1);
+        exit(1);
     }
 
     Dict d;
@@ -56,7 +53,6 @@ int main(int argc, char *argv[])
     end = clock();
     seconds = (( double ) (end - start) / CLOCKS_PER_SEC);
     printf("dsu: %.4lf\n", seconds );
-
   
     fprintf(mst_file,"EOF\n");
     fclose(mst_file);
@@ -70,49 +66,10 @@ int main(int argc, char *argv[])
     free(dict_get(d, EDGE_KEY));
     dict_delete(d);
 
-
     dfs(minimum_graph, tour_file);
     fprintf(tour_file,"EOF\n");
     fclose(tour_file);
 
     free_graph(minimum_graph);
-    //testa_matrix();
-
-
-
-    // itoa
-    // atoi
-    /*srand( atoi(argv[1]) );
-    int n = 1000;
-    int arr[n];
-    for(int i = 0; i < n; i++)
-        arr[i] = Rand(0, n);
-    //1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    //insertion_sort(arr, sizeof(arr), sizeof(int), cmp_int);
-    sort(arr, sizeof(arr), sizeof(int), cmp_int);
-    for(int i = 0; i < n; i++){
-        printf(" %d", arr[i]);
-        printf("%s", (i == n-1?"\n":""));
-    }
-    */
     return 0;
-}
-
-int cmp_int(void * x, void * y){
-    if(x == NULL ){
-        perror("DEU RUIM X EH NULL\n");
-        exit(1);
-    }
-    else if(y == NULL){
-        perror("DEU RUIM Y EH NULL\n");
-        exit(1);
-    }
-
-    int X = *((int*)x);
-    int Y = *((int*)y);
-    return (X-Y); // 1 == x > y, 0 == x =y, -1 == x < y
-}
-
-int Rand(int a, int b){
-    return a + rand()%(b-a+1);
 }

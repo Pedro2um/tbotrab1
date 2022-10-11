@@ -21,7 +21,4 @@ void freeUnionFind(UF* uf);
 //printa a estrutura (vetores) do union find 
 void printUnionFind(UF* uf);
 
-
-
-
 #endif 

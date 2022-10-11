@@ -11,7 +11,6 @@
 #define COORD_KEY "NODE_COORD_SECTION"
 
 typedef struct keyVal KeyVal;
-
 typedef KeyVal* Dict[DICT_SIZE];
 
 void dict_init(Dict d);

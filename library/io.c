@@ -54,7 +54,6 @@ void read_tsp_data(Dict d, char *tsp_file){
     free(coord_key);
 
     int max_coord = *( (int *) dict_get(d, DIM_KEY) );
-    // PlanesPoint **coords = (PlanesPoint **) malloc(max_coord * sizeof(PlanesPoint *));
     PlanePointsArray *coords = init_plane_points_array(max_coord);
     int cc = 1;
 
@@ -85,14 +84,9 @@ static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc)
     }
 
     assert(i == cc && i <= max_coord);
-    // coords[cc - 1] = init_planes_point(i, x, y);
     set_plane_points_array(coords, i - 1, x, y);
     return 1;
 }
-
-
-
-
 
 FILE* write_header(Dict d, char * dir, char * type)
 {
@@ -124,7 +118,7 @@ FILE* write_header(Dict d, char * dir, char * type)
 
     else sprintf(file_dir,"%s/%s%s", dir, file_name, my_type[1]);
 
-    printf("\n%s\n", file_dir);
+    // printf("\n%s\n", file_dir);
     
     FILE* out_file =  fopen(file_dir, "wb");
     fprintf(out_file,"NAME: %s\n", file_name);

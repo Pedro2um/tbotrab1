@@ -8,8 +8,7 @@ struct uf{
     unsigned short * vec;
     unsigned short * weights;
     unsigned int size;
-};  
-
+};
 
 UF* initUnionFind(unsigned short n){
     UF* uf = (UF*)malloc(sizeof(UF));
@@ -34,7 +33,6 @@ UF* initUnionFind(unsigned short n){
     }
 
     return uf;
-
 }
 
 //o elemento passado é a posicao do vetor, mas o elemento 1 está na posicao 0, portanto, toda funcao que retorna um inteiro para o usuario, na verdade, esse 
@@ -68,7 +66,6 @@ unsigned short Conected(UF* uf, unsigned short a, unsigned short b){
     return (Find(uf, a) == Find(uf, b));
 }
 
-
 unsigned short Find(UF* uf, unsigned short a){
     unsigned short * vec = uf->vec;
     unsigned short i = a - 1;
@@ -79,7 +76,6 @@ unsigned short Find(UF* uf, unsigned short a){
     //retornamos o index mais 1, porque o usuario pensa que o vetor comeca com o elemento igual a 1
     return i + 1;
 }
-
 
 void freeUnionFind(UF* uf){
     free(uf->vec);
@@ -106,5 +102,3 @@ void printUnionFind(UF* uf){
 
     return;
 }
-
-
