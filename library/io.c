@@ -4,7 +4,6 @@
 #include <assert.h>
 #include "io.h"
 #include "PlanesPoint.h"
-#include "Edge.h"
 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
@@ -63,31 +62,6 @@ void read_tsp_data(Dict d, char *tsp_file){
     fclose(f);
 }
 
-static char *_read_value(Dict d, FILE *f, char *key, int add_to_data){
-    char *key_str = NULL, *value = NULL;
-    fscanf(f, " %m[^:]: %m[^\n]\n", &key_str, &value);
-    assert(strcmp(key, key_str) == 0);
-
-    if(add_to_data) dict_insert(d, key, value);
-
-    free(key_str);
-    return value;
-}
-
-static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc){
-    int i = 0;
-    double x = 0.0, y = 0.0;
-
-    int id = fscanf(f, "%d%lf%lf", &i, &x, &y);
-    if(id != 3){
-        return 0;
-    }
-
-    assert(i == cc && i <= max_coord);
-    set_plane_points_array(coords, i - 1, x, y);
-    return 1;
-}
-
 FILE* write_header(Dict d, char * dir, char * type)
 {
     const char* TYPE_TOUR[2] = {"TOUR", ".tour"};
@@ -131,4 +105,29 @@ FILE* write_header(Dict d, char * dir, char * type)
     free(my_type[1]);
 
     return out_file;
+}
+
+static char *_read_value(Dict d, FILE *f, char *key, int add_to_data){
+    char *key_str = NULL, *value = NULL;
+    fscanf(f, " %m[^:]: %m[^\n]\n", &key_str, &value);
+    assert(strcmp(key, key_str) == 0);
+
+    if(add_to_data) dict_insert(d, key, value);
+
+    free(key_str);
+    return value;
+}
+
+static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc){
+    int i = 0;
+    double x = 0.0, y = 0.0;
+
+    int id = fscanf(f, "%d%lf%lf", &i, &x, &y);
+    if(id != 3){
+        return 0;
+    }
+
+    assert(i == cc && i <= max_coord);
+    set_plane_points_array(coords, i - 1, x, y);
+    return 1;
 }

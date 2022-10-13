@@ -1,11 +1,10 @@
 #include <stdlib.h>
-#include "mst.h"
-#include "PlanesPoint.h"
-#include "UnionFind.h"
-#include "Graph.h"
 #include <stdio.h>
 #include <assert.h>
 #include <time.h>
+#include "mst.h"
+#include "PlanesPoint.h"
+#include "UnionFind.h"
 
 EdgesArray *calculate_edges(Dict d, int size){
     PlanePointsArray *pp = dict_get(d, COORD_KEY);

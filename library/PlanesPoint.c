@@ -26,9 +26,8 @@ void print_plane_points_array(PlanePointsArray *p, unsigned short N){
 }
 
 float distance_between_plane_points(PlanePointsArray *p, unsigned short id1, unsigned short id2){
-    float distance = (p[id1][0] - p[id2][0]) * (p[id1][0] - p[id2][0])
-                   + (p[id1][1] - p[id2][1]) * (p[id1][1] - p[id2][1]);
-    return sqrt(distance);
+    return sqrt((p[id1][0] - p[id2][0]) * (p[id1][0] - p[id2][0])
+              + (p[id1][1] - p[id2][1]) * (p[id1][1] - p[id2][1]));
 }
 
 void free_plane_points_array(PlanePointsArray *p){

@@ -3,9 +3,7 @@
 
 #include "Dict.h"
 #include "Edge.h"
-#include "UnionFind.h"
 #include "Graph.h"
-// void testa_matrix(void);
 
 EdgesArray *calculate_edges(Dict d, int size);
 

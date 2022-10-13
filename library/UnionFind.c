@@ -82,23 +82,3 @@ void freeUnionFind(UF* uf){
     free(uf->weights);
     free(uf);
 }
-
-void printUnionFind(UF* uf){
-    unsigned short * vec = uf->vec;
-    unsigned short * w = uf->weights;
-
-    printf("[ ");
-    for(unsigned short i =0; i < uf->size; i ++){
-        // pritna i + 1 porque o usuario pensa que o vetor comeca com o elemento igual a 1
-        printf("%d ", vec[i] + 1);
-    }
-    printf("]\n");
-
-     printf("[ ");
-    for(unsigned short i =0; i < uf->size; i ++){
-        printf("%d ", w[i]);
-    }
-    printf("]");
-
-    return;
-}

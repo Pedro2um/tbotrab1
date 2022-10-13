@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "Edge.h"
 #include <assert.h>
-#include "sort.h"
+#include "Edge.h"
 
 static int _cmp_edge(const void *a, const void *b);
 

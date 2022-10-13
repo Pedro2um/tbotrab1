@@ -18,7 +18,4 @@ unsigned short Find(UF* uf, unsigned short a);
 //libera toda a estrutura do union find
 void freeUnionFind(UF* uf);
 
-//printa a estrutura (vetores) do union find 
-void printUnionFind(UF* uf);
-
 #endif 
