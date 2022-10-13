@@ -1,7 +1,7 @@
 #ifndef DICT_H
 #define DICT_H
 
-#define DICT_SIZE 13
+#define DICT_SIZE 7
 
 #define NAME_KEY "NAME"
 #define COM_KEY "COMMENT"

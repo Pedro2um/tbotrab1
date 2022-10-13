@@ -21,7 +21,7 @@
 
 
 static long long fast_log2(long long n){
-    long long cnt = 0;
+    /*long long cnt = 0;
     if(n == 1){
         return 0;
     }
@@ -33,12 +33,14 @@ static long long fast_log2(long long n){
         cnt++;
     }
     return cnt;
+    */
+   return floor(log2(n));
 }
 
 
 // from:
 // https://www.programmingalgorithms.com/algorithm/intro-sort/c/
-static long long partition(long long left, long long right, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+static long long partition(long long left, long long right, void* arr, int size, size_t element_size, int(*compare)(void* x, void* y)){
     char* pivot = malloc(element_size);
     if(pivot == NULL){
         perror("PIVOT IS NULL");
@@ -86,7 +88,7 @@ static long long partition(long long left, long long right, void* arr, size_t da
 
 // from
 // https://www.mygreatlearning.com/blog/heap-sort/
-static void sift_down(long long idx, long long end, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+static void sift_down(long long idx, long long end, void* arr, int size, size_t element_size, int(*compare)(void* x, void* y)){
     size_t n = end+1;
     long long i = idx, j = 0;
     while( 2*i + 1 < n ){
@@ -108,11 +110,11 @@ static void sift_down(long long idx, long long end, void* arr, size_t data_size,
 
 // from:
 // https://rosettacode.org/wiki/Sorting_algorithms/Heapsort
-static void heapify(void *arr, size_t data_size, size_t element_size, int(*compare)(void * x, void * y)){
-    long long n = data_size/element_size;
+static void heapify(void *arr, int size, size_t element_size, int(*compare)(void * x, void * y)){
+    long long n = size;
     long long start = ((n-2)/2);
     while(start >= 0){
-        sift_down(start, n-1, arr, data_size, element_size, compare);
+        sift_down(start, n-1, arr, size, element_size, compare);
         start--;
     }
 }
@@ -133,11 +135,11 @@ void gen_swap(void* a, void* b, size_t size){
 
 // from:
 // https://www.geeksforgeeks.org/insertion-sort/
-void insertion_sort(void *arr, size_t data_size, size_t element_size, int(*compare)(void * x, void * y)){
+void insertion_sort(void *arr, int size, size_t element_size, int(*compare)(void * x, void * y)){
 
     int i , j;
     char* key = malloc(element_size);
-    int n = data_size/element_size;
+    int n = size;
     for(i = 1; i < n; i++){
         memcpy(key, element(arr, i, element_size), element_size);
         //int idx_key = i;
@@ -154,45 +156,51 @@ void insertion_sort(void *arr, size_t data_size, size_t element_size, int(*compa
 
 // from:
 // https://www.youtube.com/watch?v=JNQmKZE7blY
-void heap_sort(void *arr, size_t data_size, size_t element_size, int(*compare)(void * x, void * y)){
-    size_t n = data_size/element_size;
-
-    heapify(arr, data_size, element_size, compare);
+void heap_sort(void *arr, int size, size_t element_size, int(*compare)(void * x, void * y)){
+    //size_t n = data_size/element_size;
+    long long n = size;
+    heapify(arr, size, element_size, compare);
     long long end = n-1;
     while(end > 0){
         gen_swap(element(arr, element_size, 0), element(arr, element_size, end), element_size);
         end--;
-        sift_down(0, end, arr, data_size, element_size, compare);
+        sift_down(0, end, arr, size, element_size, compare);
     }
 }
 
 // from:
 // https://www.programmingalgorithms.com/algorithm/intro-sort/c/
 // TODO: Make a iterative version instead
-void rec_quick_sort(long long left, long long right, void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
+void rec_quick_sort(long long left, long long right, void* arr, int size, size_t element_size, int(*compare)(void* x, void* y)){
     if(left < right){
-        long long q = partition(left, right, arr, data_size, element_size, compare);
-        rec_quick_sort(left, q - 1, arr, data_size, element_size, compare);
-        rec_quick_sort(q+1, right, arr, data_size, element_size, compare);
+        long long q = partition(left, right, arr, size, element_size, compare);
+        rec_quick_sort(left, q - 1, arr, size, element_size, compare);
+        rec_quick_sort(q+1, right, arr, size, element_size, compare);
     }
 }
 
+// TODO:    MEXER NESSA MERDA!
 // from:
 // https://www.programmingalgorithms.com/algorithm/intro-sort/c/
-void sort(void* arr, size_t data_size, size_t element_size, int(*compare)(void* x, void* y)){
-    long long n = data_size/element_size;
-    long long last = n - 1;
-    long long partition_size = partition(0, last, arr, data_size, element_size, compare);
+void sort(void* arr, int left, int right, int size, size_t element_size, int(*compare)(void* x, void* y)){
+    long long n = size/element_size;
+    //long long last = n - 1;
+    long long partition_size = partition(left, right, arr, size, element_size, compare);
     if( partition_size < 16){
         fprintf(stdout, "INSERTION SORT:\n");
-        insertion_sort(arr, data_size, element_size, compare);
+        insertion_sort(arr, size, element_size, compare);
     }
-    else if(partition_size > (long long)(2LL * fast_log2(n) )) {
+    else if(partition_size > (2LL * fast_log2(n) )) {
         fprintf(stdout, "HEAP SORT:\n");
-        heap_sort(arr, data_size, element_size, compare);
+        heap_sort(arr, size, element_size, compare);
     }
     else{
-        fprintf(stdout, "QUICK SORT:\n");
-        rec_quick_sort(0, last, arr, data_size, element_size, compare);
+        fprintf(stdout, "RECURSAO:\n");
+        int mid = left + (right-left)/2;
+        //pivot =
+        sort(arr, left, mid, size, element_size, compare);
+        sort(arr, mid+1, right, size, element_size, compare);
+        //fprintf(stdout, "QUICK SORT:\n");
+        //rec_quick_sort(0, last, arr, size, element_size, compare);
     }
 }

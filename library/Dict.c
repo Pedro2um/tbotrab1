@@ -47,6 +47,9 @@ void *dict_get(Dict d, char *key){
 }
 
 void dict_delete(Dict d){
+    free(dict_get(d, NAME_KEY));
+    free(dict_get(d, DIM_KEY));
+
     for(int i = 0; i < DICT_SIZE; i++){
         if(d[i] != NULL){
             free(d[i]->key);
