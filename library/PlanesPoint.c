@@ -19,12 +19,6 @@ void set_plane_points_array(PlanePointsArray *p, unsigned short id, float x, flo
     p[id][1] = y;
 }
 
-void print_plane_points_array(PlanePointsArray *p, unsigned short N){
-    for(int i = 0; i < N; i++){
-        printf("{\n  id = %d\n  x = %f\n  y = %f\n}\n", i + 1, p[i][0], p[i][1]);
-    }
-}
-
 float distance_between_plane_points(PlanePointsArray *p, unsigned short id1, unsigned short id2){
     return sqrt((p[id1][0] - p[id2][0]) * (p[id1][0] - p[id2][0])
               + (p[id1][1] - p[id2][1]) * (p[id1][1] - p[id2][1]));
