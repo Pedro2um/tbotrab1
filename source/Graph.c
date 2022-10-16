@@ -140,26 +140,26 @@ static int get_matrix_adj(MatrixAdj *m, int size, int i, int j)
     }
     /*
         pegando um exemplo, imagine uma matriz 5x5
-        a linha 0 terá 4 elemtos, a linha 1 terá 3
+        a linha 0 terá 4 elementos, a linha 1 terá 3
         a linha 2 terá 2, se vermos bem, começamos com 4  (que é o tamanho menos 1 = > 5 -1 )
         vamos subraindo 1 a cada linha que descemos, na linha 1 tiramos 1
         na linha 2 tiramos 2. Então se quisermos saber quantos elementos já percorremos até um linha
         qualquer, podemos calcular como se fosse uma P.A que começa em 4 e vai subraindo 1.
 
-        ex.: no começo da linha 3, termos já percorrido 4 (linha 0) + 3 (linha 1) + 2 (linha 2) = 9
+        ex.: no começo da linha 3, teremos já percorrido 4 (linha 0) + 3 (linha 1) + 2 (linha 2) = 9
         entao o indice do elemento antes do primeiro da linha 3 é 9 - 1 = 8
         e o indice do primeiro da linha 3 é igual a 8 + 1 = 9, entao o resultado da P.A é 
         o indice do primeiro elemento da linha selecionada
 
         formula da p.a = > m.(u + p)/2 ; m = numero de elementos , u = ultimo, p = primeiro
 
-        se estamos na linha 3, passamos 3 linhas que representaram os 3 numeros de elementos, entoa m = i que é a linha.
+        se estamos na linha 3, passamos 3 linhas que representam os 3 numeros de elementos, entao m = i que é a linha.
         o primeiro sempre será 4, que é a quantidade de elementos da primeira linha, e 4 é N (tamanho da matriz) -1,
         entao p =  N -1 
 
         partindo de N -1, vamos retirando 1 pra cada linha, ex.: na linha 1 temos 4 -1 = 3
-        na linha 2 temos 4 -2 = 2 e assim por diante, entao para a linha 2, 4 + 3 
-        se i é a linha que estamos, como retiramos de 4 até o valor da linha anterior de i, que é i -1
+        na linha 2 temos 4 -2 = 2 e assim por diante, entao para a linha 2 teremos 4 + 3 elementos antes dela.
+        i é a linha que estamos, como retiramos de 4 até o valor da linha anterior de i, que é i - 1, no exemplo dado
         o u (ultimo) foi 4 - (1), que é a linha 1, podemos escrever então 4 - (2 -1), 2 é a linha que estamos
         portanto u = N - 1 - (i -1) que é N - i
 
@@ -172,9 +172,9 @@ static int get_matrix_adj(MatrixAdj *m, int size, int i, int j)
 
         pronto, selecionamos o primeiro elemento da linha, agora precisamos deslocar a coluna 
 
-        se olharmos para a linha 0, vemos que a coluna 1 na verdade é a coluna 0 do vetor. 
+        se olharmos para a linha 0, vemos que a coluna 1 na verdade é o indice 0 do vetor. 
         entao j - 1 é o primeiro passo para corrigir o acesso a primeira linha da matriz,
-        mas a cada linha que vamos descendo, temos um elento a menos
+        mas a cada linha que vamos descendo, temos um elento a menos na linha
         entao o acesso a coluna se dá por J = j - 1 - (i) 
 
         juntando tudo temos que o elemento que queremos acessar é a o primeiro elemento da linha  + o deslocamento da coluna 
