@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Graph.h"
+#include <assert.h>
+#include "../include/Graph.h"
 
 // faz a troca entre dois inteiros
-#define swap(a, b) {a ^= b ^= a ^= b;}
+#define swap(a, b) { a ^= b; b ^= a; a ^= b; }
 
 typedef unsigned char MatrixAdj;
 typedef unsigned char Vertex;

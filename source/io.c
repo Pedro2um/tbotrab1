@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "io.h"
-#include "PlanesPoint.h"
+#include "../include/io.h"
+#include "../include/PlanesPoint.h"
 
 /// @brief lê um determinado dado de um arquivo e armazena ou não o valor lido no dicionário, sempre retorna o valor lido
 /// @param dicionario onde vai ser armazenado o valor lido

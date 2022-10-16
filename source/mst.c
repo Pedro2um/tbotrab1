@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <assert.h>
 #include <time.h>
-#include "mst.h"
-#include "PlanesPoint.h"
-#include "UnionFind.h"
+#include "../include/mst.h"
+#include "../include/PlanesPoint.h"
+#include "../include/UnionFind.h"
+
 // Como o grafo é completo, temos n*(n+1)/2 arestas, pois todo vértice é adjacente a todos os outros.
 EdgesArray *calculate_edges(Dict d, int size){
     PlanePointsArray *pp = dict_get(d, COORD_KEY);

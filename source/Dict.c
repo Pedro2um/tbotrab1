@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "Dict.h"
+#include "../include/Dict.h"
 
 static int _hash_code(char *key);
 

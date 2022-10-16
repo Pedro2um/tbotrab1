@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
-#include "Edge.h"
+#include "../include/Edge.h"
 
 static int _cmp_edge(const void *a, const void *b);
 
