@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
 
     //cria o arquivo com cabeçalho para .mst
     FILE* mst_file = write_header(d, "saidas", "MST");
+
     //retorna o grafo que representa a arvore geradora minima
+    // imprime, também, as arestas da árvore no arquivo passado 
     Graph* minimum_graph = minimum_spanning_tree(e, total_edges, n, mst_file);
     free_edges_array(e);  
     fprintf(mst_file,"EOF\n");
@@ -45,7 +47,8 @@ int main(int argc, char *argv[])
     FILE* tour_file = write_header(d ,"saidas", "TOUR");    
     //libera o dicionário
     dict_delete(d);
-    // deep-first search aplicada no grafo da que representa a árvore geradora mínima
+    //deep-first search aplicada no grafo da que representa a árvore geradora mínima
+    //é printado no arquivo passado o caminho percorrido
     dfs(minimum_graph, tour_file);
     fprintf(tour_file,"EOF\n");
 
