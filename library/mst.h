@@ -12,7 +12,7 @@
 EdgesArray *calculate_edges(Dict d, int size);
 
 /// @brief Retorna o grafo da árvore geradora mínima
-/// @param  Um vetor de arestas
+/// @param  Um vetor de arestas ordenado ( ordem não decrescente)
 /// @param  O tamanho do vetor de arestas
 /// @param  Numero de vétices do grafo
 /// @param  Um ponteiro para o arquivo de saida

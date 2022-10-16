@@ -5,7 +5,7 @@
 
 /// @brief lê os dados do arquivo .tsp e coloca em um dicionario 
 /// @param dicionario alocado 
-/// @param string contendo o diretorio para o arquivo .tsp
+/// @param string contendo o caminho para o arquivo .tsp
 /// @return retorno vazio 
 void read_tsp_data(Dict d, char *tsp_file);
 
