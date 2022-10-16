@@ -10,49 +10,62 @@
 
 int main(int argc, char *argv[])
 {
-    //verifica se parametros nao foram passados para o programa corretamente 
     if(argc <= 1){
         fprintf(stderr, "ERROR, NO ARGV [1]!\n");
         exit(1);
     }
 
-    //criando dicionário
+    clock_t start = 0, end = 0;
+    double seconds = 0.0;
+
     Dict d;
     dict_init(d);
 
-    // lê os dados e insere no dicionário
+    start = clock ();
     read_tsp_data(d, argv[1]);
+    end = clock ();
+    seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
+    printf("read_tsp_data: %.4lf\n", seconds );    
     
-    //resgata a dimenção armazenada no dicionário 
     int n = *((int *) dict_get(d, DIM_KEY));
+    int total_edges = ceil(n * (n - 1) / 2.0);    
 
-    //calcula a quantidade de arestas que podem ser geradas com a quantidade 'n', calcula as arestas 
-    int total_edges = ceil(n * (n - 1) / 2.0);
+    start = clock ();
     EdgesArray *e = calculate_edges(d, total_edges);
-    free_plane_points_array(dict_get(d, COORD_KEY));    
-    //ordena o vetor de arestas gerado
-    sort_edges_array(e, total_edges);
+    end = clock ();
+    seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
+    printf("calculate_edges: %.4lf\n", seconds );
 
-    //cria o arquivo com cabeçalho para .mst
+    free_plane_points_array(dict_get(d, COORD_KEY));
+
+    start = clock ();
+    sort_edges_array(e, total_edges);
+    end = clock ();
+    seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
+    printf("sort_edges_array: %.4lf\n", seconds );    
+
     FILE* mst_file = write_header(d, "saidas", "MST");
 
-    //retorna o grafo que representa a arvore geradora minima
-    // imprime, também, as arestas da árvore no arquivo passado 
+    start = clock ();
     Graph* minimum_graph = minimum_spanning_tree(e, total_edges, n, mst_file);
+    end = clock ();
+    seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
+    printf("minimum_spanning_tree: %.4lf\n", seconds );
+
     free_edges_array(e);  
     fprintf(mst_file,"EOF\n");
     fclose(mst_file);
 
-    //cria um arquivo com cabeçaho para .tour
-    FILE* tour_file = write_header(d ,"saidas", "TOUR");    
-    //libera o dicionário
+    FILE* tour_file = write_header(d ,"saidas", "TOUR");
     dict_delete(d);
-    //deep-first search aplicada no grafo da que representa a árvore geradora mínima
-    //é printado no arquivo passado o caminho percorrido
-    dfs(minimum_graph, tour_file);
-    fprintf(tour_file,"EOF\n");
 
-    //liberando estruturas e fechando arquivos 
+    start = clock ();
+    dfs(minimum_graph, tour_file);
+    end = clock ();
+    seconds = (( double ) (end - start) / ( double ) CLOCKS_PER_SEC);
+    printf("dfs: %.4lf\n", seconds );
+    
+    fprintf(tour_file,"EOF\n");
     fclose(tour_file);
     free_graph(minimum_graph);
 

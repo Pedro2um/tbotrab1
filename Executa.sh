@@ -1,12 +1,12 @@
-# make compile
-# clear
+make compile
+clear
 
-# ./prog ./exemplos/in/a280.tsp
-# ./prog ./exemplos/in/berlin52.tsp
-# ./prog ./exemplos/in/d18512.tsp
-# ./prog ./exemplos/in/eil101.tsp
-# ./prog ./exemplos/in/pr1002.tsp
-# ./prog ./exemplos/in/tsp225.tsp
+./prog ./exemplos/in/a280.tsp
+./prog ./exemplos/in/berlin52.tsp
+./prog ./exemplos/in/d18512.tsp
+./prog ./exemplos/in/eil101.tsp
+./prog ./exemplos/in/pr1002.tsp
+./prog ./exemplos/in/tsp225.tsp
 
 echo "a280"
 python3 ./exemplos/tsp_plot.py ./exemplos/in/a280.tsp ./exemplos/mst/a280.mst ./exemplos/tour/a280.tour
