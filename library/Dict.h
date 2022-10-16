@@ -39,7 +39,7 @@ void dict_insert(Dict d, char *key, void *value);
 void *dict_get(Dict d, char *key);
 
 /**
- * @brief deleta a memoria alocada para o dicionario
+ * @brief libera a memoria alocada para o dicionario
  * 
  * @param d o dicionario
  */
