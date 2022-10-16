@@ -3,7 +3,7 @@
 #include "Graph.h"
 
 // faz a troca entre dois inteiros
-#define swap(a, b) {a ^= b ^= a ^= b;}
+#define swap(a, b) { (a) ^= (b) ^= (a) ^= (b);}
 
 typedef unsigned char MatrixAdj;
 typedef unsigned char Vertex;
