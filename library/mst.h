@@ -5,13 +5,13 @@
 #include "Edge.h"
 #include "Graph.h"
 
-/// @brief 
+/// @brief Retorna o vetor de arestas construido a partir do dicionário
 /// @param Um dict alocado
 /// @param Tamamho do vetor de arestas
 /// @return Um ponteiro para um vetor de arestas
 EdgesArray *calculate_edges(Dict d, int size);
 
-/// @brief 
+/// @brief Retorna o grafo da árvore geradora mínima
 /// @param  Um vetor de arestas
 /// @param  O tamanho do vetor de arestas
 /// @param  Numero de vétices do grafo
