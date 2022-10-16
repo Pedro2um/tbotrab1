@@ -1,16 +1,7 @@
-execute:
-	./prog
+all:
+	gcc -o trab1 ./client/main.c ./source/*.c -lm
+	clear
 
-compile:
-	gcc -Wall -c main.c ./library/*.c
-	mv *.o ./dotObjects
-	gcc -Wall -o prog ./dotObjects/*.o -lm
-
-cexecute:
-	make compile
-	./prog
-	
-clearObjects:
-	rm ./dotObjects/*.o
-valgrind:
-	valgrind ./prog
+clean: all
+	rm -f trab1
+	clear

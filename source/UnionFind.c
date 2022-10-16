@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "UnionFind.h"
-#define     in_range(x, N)          (x >= 0 && x < N)
+#include "../include/UnionFind.h"
+
+#define in_range(x, N) (x >= 0 && x < N)
 
 struct uf{
     unsigned short * vec;

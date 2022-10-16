@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
-#include "PlanesPoint.h"
+#include "../include/PlanesPoint.h"
 
 PlanePointsArray *init_plane_points_array(unsigned short N){
     PlanePointsArray* p = (PlanePointsArray*) malloc(N * sizeof(PlanePoint));

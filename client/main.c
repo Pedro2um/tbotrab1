@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "./library/Dict.h"
-#include "./library/io.h"
-#include "./library/mst.h"
-#include "./library/PlanesPoint.h"
-#include "./library/Graph.h"
+#include "../include/Dict.h"
+#include "../include/io.h"
+#include "../include/mst.h"
+#include "../include/PlanesPoint.h"
+#include "../include/Graph.h"
 
 int main(int argc, char *argv[])
 {

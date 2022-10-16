@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "Graph.h"
+#include "../include/Graph.h"
 
 // faz a troca entre dois inteiros
 #define swap(a, b) { a ^= b; b ^= a; a ^= b; }
