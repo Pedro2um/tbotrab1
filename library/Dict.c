@@ -22,10 +22,15 @@ void dict_insert(Dict d, char *key, void *value){
     int hash_code = _hash_code(key);
     int i = 0;
 
+    // a insercao funciona com deslocamento
+    // caso a posicao referente ao hash code esteja ocupada
+    // ele procura a proxima livre
     while(d[hash_code + i] != NULL && strcmp(d[hash_code + i]->key, key) != 0){
         i = (i + 1) % DICT_SIZE;
     }
 
+    // caso a chave ja exista
+    // o valor referente a ela é atualizado
     if(d[hash_code + i] != NULL){
         free(d[hash_code + i]->key);
         free(d[hash_code + i]);
@@ -47,6 +52,8 @@ void *dict_get(Dict d, char *key){
 }
 
 void dict_delete(Dict d){
+    // como o dicionario foi modelado pra esse problema
+    // ele libera valores que nao foram liberados antes
     free(dict_get(d, NAME_KEY));
     free(dict_get(d, DIM_KEY));
 
