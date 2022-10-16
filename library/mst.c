@@ -5,7 +5,7 @@
 #include "mst.h"
 #include "PlanesPoint.h"
 #include "UnionFind.h"
-
+// Como o grafo é completo, temos n*(n+1)/2 arestas, pois todo vértice é adjacente a todos os outros.
 EdgesArray *calculate_edges(Dict d, int size){
     PlanePointsArray *pp = dict_get(d, COORD_KEY);
     int n = *((int *) dict_get(d, DIM_KEY));
@@ -19,7 +19,10 @@ EdgesArray *calculate_edges(Dict d, int size){
 
     return e;
 }
-
+/*  Algoritmo de Kruskal para árvore geradora mínima (MST)
+    1 - Ordenar as arestas ( ordem não decrescente )
+    2 - Iterar sobre as arestas, e adicionar a aresta leve que cruza o corte que respeita a MST
+*/
 Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N, FILE* output_file){
     Graph *g = init_graph(N);
     UF* dsu = initUnionFind(N);
