@@ -5,8 +5,19 @@
 #include "io.h"
 #include "PlanesPoint.h"
 
+/// @brief lê um determinado dado de um arquivo e armazena ou não o valor lido no dicionário, sempre retorna o valor lido
+/// @param dicionario onde vai ser armazenado o valor lido
+/// @param chave do dicionario onde vai ser inserido o valor,
+/// @param flag que quando diferente de zero implica que o valor dever ser armazenado no dicionario na chave passada
+/// @return o valor lido na linha do arquivo em formato de char * 
 static char *_read_value(Dict d, FILE *f, char *key, int add_to_data);
 
+
+/// @brief lê uma cordenada no arquivo .tsp e insere no vetor de coordenadas
+/// @param arquivo de onde será lido as coodernadas
+/// @param coordernada máxima que pode ser obtida no arquivo , utilizada como parâmetro para verificar erros
+/// @param 
+/// @return Um ponteiro para um vetor de arestas
 static int _read_coord(PlanePointsArray *coords, FILE *f, int max_coord, int cc);
 
 void read_tsp_data(Dict d, char *tsp_file){
