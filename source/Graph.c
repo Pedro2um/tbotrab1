@@ -166,7 +166,7 @@ static int get_matrix_adj(MatrixAdj *m, int size, int i, int j)
         montando a formula
         
         i * (N -1 + N - i) /2 
-        rearrajando = > i * (2 * N - (i +1))
+        rearrajando = > i * (2 * N - (i +1))/2
 
         ufa!!
 
