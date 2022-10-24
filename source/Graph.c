@@ -93,6 +93,9 @@ void dfs(Graph *g, FILE *output_file)
 
 void private_dfs_(Graph *g, unsigned short id, FILE *output_file)
 {
+    static unsigned short cnt = 0;
+    cnt++;
+
     // marca o vertice como visitado
     g->v[id] = 1;
 
@@ -103,6 +106,8 @@ void private_dfs_(Graph *g, unsigned short id, FILE *output_file)
     // verifica todos os vertices
     for (int i = 0; i < g->v_size; i++)
     {
+        if (cnt == g->v_size) break;
+
         // se o vertice for adjacente ao vertice atual
         // e nao tiver sido visitado ainda, eh chamado a dfs
         // para esse vertice

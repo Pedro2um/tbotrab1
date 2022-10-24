@@ -29,7 +29,7 @@ Graph* minimum_spanning_tree(EdgesArray* arr, int size, int N, FILE* output_file
     UF* dsu = initUnionFind(N);
     int cnt = 0;
     //iterar sobre o grafo
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < size && cnt < size - 1; i++){
         int ida = get_id_a_edges_array(arr, i);
         int idb = get_id_b_edges_array(arr, i);
 
